@@ -2,7 +2,8 @@ package com.android.mvc.util
 
 /**
  * date: 2020/8/2
- * desc: infix函数不能定义成顶层函数，必须是某个类的成员函数且函数只能接收一个参数(参数类型没有限制)
+ * desc: infix函数是一种高级语法糖，可以构建更可读的语法
+ * infix函数不能定义成顶层函数，必须是某个类的成员函数且函数只能接收一个参数(参数类型没有限制)
  * 可以使用扩展函数的方式将它定义到某个类当中
  */
 // if("Hello Kotlin" beginsWith "Hello"){}
