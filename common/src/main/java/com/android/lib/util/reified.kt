@@ -1,4 +1,4 @@
-package com.android.mvc.util
+package com.android.lib.util
 
 import android.content.Context
 import android.content.Intent
