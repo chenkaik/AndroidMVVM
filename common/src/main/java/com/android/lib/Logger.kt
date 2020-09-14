@@ -52,4 +52,10 @@ object Logger {
         }
     }
 
+    fun e(tag: String, msg: String, tr: Throwable) {
+        if (LOG_ENABLE && level <= ERROR) {
+            Log.e(tag, msg, tr)
+        }
+    }
+
 }
