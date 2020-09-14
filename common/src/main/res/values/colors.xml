@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <!--303F9F-->
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!--烟白色-->
+    <color name="colorWhiteSmoke">#F5F5F5</color>
+    <color name="black">#595959</color>
+    <color name="colorGray">#DEDEE0</color>
+    <color name="color_dl">#27A3FA</color>
+    <color name="white">#FFFFFF</color>
+    <!--点击颜色-->
+    <color name="bgColor_alert_button_press">#EAEAEA</color>
+    <!--透明-->
+    <color name="transparent">#00000000</color>
+</resources>
