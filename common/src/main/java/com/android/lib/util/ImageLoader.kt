@@ -123,5 +123,5 @@ object ImageLoader {
     fun clearMemory(context: Context) {
         Glide.get(context).clearMemory()
     }
-    
+
 }
