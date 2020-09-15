@@ -6,7 +6,7 @@ import android.content.SharedPreferences
  * date: 2020/7/27
  * desc: 使用高阶函数简化SharedPreferences的使用
  */
-fun SharedPreferences.open(block: SharedPreferences.Editor.() -> Unit) {
+inline fun SharedPreferences.open(block: SharedPreferences.Editor.() -> Unit) {
     val editor = edit()
 //    editor.block()
     block(editor)
