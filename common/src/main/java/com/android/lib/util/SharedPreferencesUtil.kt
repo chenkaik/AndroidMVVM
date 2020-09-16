@@ -11,18 +11,18 @@ import android.content.SharedPreferences
  * apply 会将最后修改内容写入磁盘。但是如果希望立刻获取存储操作的结果，并据此
  * 做相应的其他操作，应当使用 commit
  */
-class SharedPreferencesUtil(context: Context, name: String?) {
+open class SharedPreferencesUtil(context: Context) {
 
-    private val TAG = javaClass.simpleName
+    /**
+     *  by lazy代码块 懒加载技术 第一次调用才会执行 最后一行代码作为返回值
+     */
+    private val sharedPreferences by lazy {
+        context.getSharedPreferences("user_config", Context.MODE_PRIVATE)
+    }
 
-    // 存放信息的文件名
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
-
-    val editor: SharedPreferences.Editor
-        get() = sharedPreferences.edit()
-
+    // internal 同一模块中的类可见
     internal interface Executable {
-        fun execute(editor: SharedPreferences.Editor?)
+        fun execute(editor: SharedPreferences.Editor)
     }
 
     private fun executeWithEditor(ex: Executable): Boolean {
@@ -31,10 +31,10 @@ class SharedPreferencesUtil(context: Context, name: String?) {
         return editor.commit()
     }
 
-    fun put(key: String?, value: Boolean): Boolean {
+    fun put(key: String, value: Boolean): Boolean {
         return executeWithEditor(object : Executable {
-            override fun execute(editor: SharedPreferences.Editor?) {
-                editor?.putBoolean(
+            override fun execute(editor: SharedPreferences.Editor) {
+                editor.putBoolean(
                     key,
                     value
                 )
@@ -42,10 +42,10 @@ class SharedPreferencesUtil(context: Context, name: String?) {
         })
     }
 
-    fun put(key: String?, value: Int): Boolean {
+    fun put(key: String, value: Int): Boolean {
         return executeWithEditor(object : Executable {
-            override fun execute(editor: SharedPreferences.Editor?) {
-                editor?.putInt(
+            override fun execute(editor: SharedPreferences.Editor) {
+                editor.putInt(
                     key,
                     value
                 )
@@ -53,10 +53,10 @@ class SharedPreferencesUtil(context: Context, name: String?) {
         })
     }
 
-    fun put(key: String?, value: Long): Boolean {
+    fun put(key: String, value: Long): Boolean {
         return executeWithEditor(object : Executable {
-            override fun execute(editor: SharedPreferences.Editor?) {
-                editor?.putLong(
+            override fun execute(editor: SharedPreferences.Editor) {
+                editor.putLong(
                     key,
                     value
                 )
@@ -64,10 +64,10 @@ class SharedPreferencesUtil(context: Context, name: String?) {
         })
     }
 
-    fun put(key: String?, value: Float): Boolean {
+    fun put(key: String, value: Float): Boolean {
         return executeWithEditor(object : Executable {
-            override fun execute(editor: SharedPreferences.Editor?) {
-                editor?.putFloat(
+            override fun execute(editor: SharedPreferences.Editor) {
+                editor.putFloat(
                     key,
                     value
                 )
@@ -75,10 +75,10 @@ class SharedPreferencesUtil(context: Context, name: String?) {
         })
     }
 
-    fun put(key: String?, value: String?): Boolean {
+    fun put(key: String, value: String?): Boolean {
         return executeWithEditor(object : Executable {
-            override fun execute(editor: SharedPreferences.Editor?) {
-                editor?.putString(
+            override fun execute(editor: SharedPreferences.Editor) {
+                editor.putString(
                     key,
                     value
                 )
@@ -86,10 +86,10 @@ class SharedPreferencesUtil(context: Context, name: String?) {
         })
     }
 
-    fun remove(key: String?) {
+    fun remove(key: String) {
         executeWithEditor(object : Executable {
-            override fun execute(editor: SharedPreferences.Editor?) {
-                editor?.remove(
+            override fun execute(editor: SharedPreferences.Editor) {
+                editor.remove(
                     key
                 )
             }
@@ -98,29 +98,29 @@ class SharedPreferencesUtil(context: Context, name: String?) {
 
     fun clear() {
         executeWithEditor(object : Executable {
-            override fun execute(editor: SharedPreferences.Editor?) {
-                editor?.clear()
+            override fun execute(editor: SharedPreferences.Editor) {
+                editor.clear()
             }
         })
     }
 
-    fun getBoolean(key: String?, defaultValue: Boolean): Boolean {
+    fun getBoolean(key: String, defaultValue: Boolean): Boolean {
         return sharedPreferences.getBoolean(key, defaultValue)
     }
 
-    fun getInt(key: String?, defaultValue: Int): Int {
+    fun getInt(key: String, defaultValue: Int): Int {
         return sharedPreferences.getInt(key, defaultValue)
     }
 
-    fun getLong(key: String?, defaultValue: Long): Long {
+    fun getLong(key: String, defaultValue: Long): Long {
         return sharedPreferences.getLong(key, defaultValue)
     }
 
-    fun getFloat(key: String?, defaultValue: Float): Float {
+    fun getFloat(key: String, defaultValue: Float): Float {
         return sharedPreferences.getFloat(key, defaultValue)
     }
 
-    fun getString(key: String?, defaultValue: String?): String? {
+    fun getString(key: String, defaultValue: String): String? {
         return sharedPreferences.getString(key, defaultValue)
     }
 
