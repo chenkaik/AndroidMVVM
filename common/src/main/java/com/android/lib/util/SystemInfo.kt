@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.TypedValue
 import android.view.WindowManager
+import com.android.lib.Logger
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -162,16 +163,17 @@ object SystemInfo {
      *
      * @return 版本号
      */
-    fun getVersionCode(c: Context): Int {
+    fun getVersionCode(c: Context): Long {
         val manager = c.packageManager
-        var verCode = 0
+        var verCode = 0L
         verCode = try {
             val info = manager.getPackageInfo(c.packageName, 0)
-            if (hasP()) {
-                info.longVersionCode.toInt()
-            } else {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
                 val versionCode = info.versionCode
-                versionCode
+                versionCode.toLong()
+            } else {
+                Logger.e("SystemInfo", "9.0版本及以上")
+                info.longVersionCode
             }
         } catch (e: PackageManager.NameNotFoundException) {
             return verCode
