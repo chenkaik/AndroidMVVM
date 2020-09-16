@@ -2,9 +2,12 @@ package com.android.lib.util
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.NetworkInfo
+import android.os.Build
 import android.provider.Settings
 import com.android.lib.Logger.e
+
 
 /**
  * date: 2019/1/30
@@ -14,6 +17,7 @@ object NetworkUtil {
 
     private val TAG = NetworkUtil::class.java.simpleName
 
+
     /**
      * 判断网络是否可用
      *
@@ -21,15 +25,59 @@ object NetworkUtil {
      * @return true & false
      */
     fun isNetworkAvailable(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (SystemInfo.hasM()) {
+            val network = cm.activeNetwork
+            return if (network != null) {
+                val networkCapabilities = cm.getNetworkCapabilities(network)
+                if (networkCapabilities != null) {
+                    networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || networkCapabilities.hasTransport(
+                        NetworkCapabilities.TRANSPORT_CELLULAR
+                    )
+                } else {
+                    false
+                }
+            } else {
+                false
+            }
+        } else {
+            val activeNetInfo = cm.activeNetworkInfo
+            return if (null == activeNetInfo || !activeNetInfo.isAvailable || !activeNetInfo.isConnected) {
+                e(TAG, "NetWork is unavailable")
+                false
+            } else {
+                true
+            }
+        }
+    }
+
+    fun networkConnected(context: Context): Boolean {
         val cm =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetInfo = cm.activeNetworkInfo
-        return if (null == activeNetInfo || !activeNetInfo.isAvailable || !activeNetInfo.isConnected) {
-            e(TAG, "NetWork is unavailable")
-            false
+        if (Build.VERSION.SDK_INT < 23) {
+            val mWiFiNetworkInfo = cm.activeNetworkInfo
+            if (mWiFiNetworkInfo != null) {
+                if (mWiFiNetworkInfo.type == ConnectivityManager.TYPE_WIFI) { //WIFI
+                    return true
+                } else if (mWiFiNetworkInfo.type == ConnectivityManager.TYPE_MOBILE) { //移动数据
+                    return true
+                }
+            }
         } else {
-            true
+            val network = cm.activeNetwork
+            if (network != null) {
+                val nc = cm.getNetworkCapabilities(network)
+                if (nc != null) {
+                    if (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) { //WIFI
+                        return true
+                    } else if (nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) { //移动数据
+                        return true
+                    }
+                }
+            }
         }
+
+        return false
     }
 
     /**
