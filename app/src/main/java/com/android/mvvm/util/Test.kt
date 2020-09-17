@@ -1,4 +1,4 @@
-package com.android.mvc.util
+package com.android.mvvm.util
 
 /**
  * date: 2020/9/8

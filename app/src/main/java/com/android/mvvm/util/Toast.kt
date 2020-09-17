@@ -1,7 +1,7 @@
-package com.android.mvc.util
+package com.android.mvvm.util
 
 import android.widget.Toast
-import com.android.mvc.MyApplication
+import com.android.mvvm.MyApplication
 
 /**
  * date: 2020/9/9

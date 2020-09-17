@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- 默认圆角按钮样式 -->
+    <style name="buttonStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:paddingLeft">@dimen/space_30</item>
+        <item name="android:paddingRight">@dimen/space_30</item>
+        <item name="android:textSize">@dimen/font_size_30px</item>
+        <item name="android:textColor">@color/white90</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/selector_button</item>
+        <item name="android:foreground">@null</item>
+    </style>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.android.mvc
+package com.android.mvvm
 
 import org.junit.Test
 
