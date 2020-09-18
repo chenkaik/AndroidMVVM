@@ -7,14 +7,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
+    <com.android.lib.banner.RecyclerViewBannerView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_320"
+        app:orientation="horizontal"/>
 
     <com.android.lib.util.ClearEditText
         android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入"
-        android:gravity="right" />
+        android:gravity="right"
+        android:layout_marginTop="@dimen/space_30"/>
 
     <com.android.lib.util.ClearEditText
         android:id="@+id/editText2"
