@@ -3,4 +3,6 @@
     <string name="cancel_text">取消</string>
     <string name="confirm_text">确认</string>
     <string name="please_wait_text">请稍后</string>
+    <string name="loading_wait_text">加载中…</string>
+    <string name="there_is_no_more_text">没有更多了</string>
 </resources>
