@@ -122,5 +122,5 @@ class NavigationBar : FrameLayout {
     fun setBackButtonOnClickListener(onClickListener: OnClickListener?) {
         mBackButton.setOnClickListener(onClickListener)
     }
-    
+
 }
