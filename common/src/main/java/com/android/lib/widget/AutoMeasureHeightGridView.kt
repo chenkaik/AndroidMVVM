@@ -9,7 +9,7 @@ import android.widget.GridView
  * desc: 根据item多少，自适应高度的列表
  */
 class AutoMeasureHeightGridView : GridView {
-    
+
     constructor(context: Context?) : super(context) {}
     constructor(context: Context?, attrs: AttributeSet?) : super(
         context,
