@@ -202,7 +202,7 @@ abstract class RecyclerViewBannerBaseView<L : RecyclerView.LayoutManager, A : Ba
      * @param playing 开始播放
      */
     @Synchronized
-    protected fun setPlaying(playing: Boolean) {
+    fun setPlaying(playing: Boolean) {
         if (isAutoPlaying && hasInit) {
             if (!isPlaying && playing && adapter != null && adapter!!.itemCount > 2) {
                 mHandler.sendEmptyMessageDelayed(whatAutoPlay, autoPlayDuration.toLong())
