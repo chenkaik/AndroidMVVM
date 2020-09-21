@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">AndroidMVC</string>
+    <string name="app_name">AndroidMVVM</string>
+
+    <!-- 主页 -->
+    <string name="home_exit_hint">再按一次退出程序</string>
+    <string name="home_nav_home">首页</string>
+    <string name="home_nav_work">工作</string>
+    <string name="home_nav_data">数据</string>
+    <string name="home_nav_me">我的</string>
+
 </resources>

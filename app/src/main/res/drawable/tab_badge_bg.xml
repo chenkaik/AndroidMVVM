@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- padding设置内间距 -->
+    <padding
+        android:bottom="@dimen/space_4"
+        android:left="@dimen/space_4"
+        android:right="@dimen/space_4"
+        android:top="@dimen/space_4" />
+
+    <!-- size设置形状的大小 -->
+    <size
+        android:width="@dimen/space_40"
+        android:height="@dimen/space_40" />
+
+    <solid android:color="@color/red" />
+
+</shape>

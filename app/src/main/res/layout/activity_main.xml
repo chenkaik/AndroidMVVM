@@ -7,42 +7,33 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.android.lib.banner.RecyclerViewBannerView
-        android:id="@+id/banner"
+    <com.android.lib.util.NoScrollViewPager
+        android:id="@+id/homeViewPager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_320"
-        app:orientation="horizontal"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fitsSystemWindows="false" />
 
-    <com.android.lib.util.ClearEditText
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入"
-        android:gravity="right"
-        android:layout_marginTop="@dimen/space_30"/>
-
-    <com.android.lib.util.ClearEditText
-        android:id="@+id/editText2"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/homeNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入"/>
+        android:background="@color/white"
+        app:itemBackground="@null"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemTextColor="@drawable/txt_home_bottom_nav_selector"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_home_bottom_nav"/>
 
-    <com.android.lib.util.CountdownView
-        android:id="@+id/cv_register_countdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/space_20"
-        android:text="发送验证码"
-        android:textColor="@color/colorAccent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/buttonStyle"
-        android:layout_marginLeft="@dimen/space_80"
-        android:layout_marginTop="@dimen/space_60"
-        android:layout_marginRight="@dimen/space_80"
-        android:text="TEST" />
+    <!--  取消动画效果（缩放）  -->
+    <!--    app:itemTextAppearanceActive="@style/bottomNavigationView_selected_text"
+                app:itemTextAppearanceInactive="@style/bottomNavigationView_normal_text"-->
+    <!-- app:itemTextColor="@drawable/txt_home_bottom_nav_selector" 标题颜色 -->
+    <!-- app:itemBackground="@null" 去掉背景点击的效果-->
+    <!-- app:labelVisibilityMode="labeled" 设置图标下面的文字显示
+         auto   当item小于等于3是，显示文字，item大于3个默认不显示，选中显示文字
+        labeled  始终显示文字
+        selected  选中时显示
+        unlabeled 未选中时显示 -->
 
 </LinearLayout>

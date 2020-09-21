@@ -56,6 +56,6 @@
     <color name="black10">#22000000</color>
     <color name="black5">#0c000000</color>
 
-    <color name="checked">#1495EB</color>
-    <color name="unchecked">#ff808080</color>
+    <color name="checked">#e63100</color>
+    <color name="unchecked">#979db5</color>
 </resources>

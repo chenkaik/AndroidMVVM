@@ -1,25 +1,27 @@
+// 声明是Android程序
+// com.android.application 表示这是一个应用程序模块 打包得到的是.apk文件
+// com.android.library 表示这是一个库模块 只能作为代码库依附于别的应用程序模块来运行，打包得到的是.aar文件
+// 区别：前者可以直接运行，后着是依附别的应用程序运行
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
-
+    compileSdkVersion 29 // 编译时用的Android版本
     defaultConfig {
-        applicationId "com.android.mvvm"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
+        applicationId "com.android.mvvm" // 包名
+        minSdkVersion 21 // 最低兼容的版本
+        targetSdkVersion 29 // 目标版本
+        versionCode 1 // 版本号
+        versionName "1.0.0" // 版本名称
+        // 表明要使用AndroidJUnitRunner进行单元测试
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled false // 是否对代码进行混淆
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' // 指定混淆的规则文件
         }
     }
 
@@ -34,7 +36,7 @@ android {
 
 }
 
-dependencies {
+dependencies { // 项目的依赖关系
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -44,4 +46,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(path: ':common')
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
 }
