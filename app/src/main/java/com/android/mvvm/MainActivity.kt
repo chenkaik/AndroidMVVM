@@ -1,8 +1,11 @@
 package com.android.mvvm
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
@@ -34,7 +37,7 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener,
         homeNavigationView.itemIconTintList = null // 不使用图标默认变色
         homeNavigationView.setOnNavigationItemSelectedListener(this)
 //        homeNavigationView.setItemIconSize(55); // 设置菜单项图标的大小
-        homeNavigationView.menu.getItem(0).isChecked = true
+//        homeNavigationView.menu.getItem(0).isChecked = true
         // 添加角标，先获取整个的BottomNavigationMenuView
         val menuView = homeNavigationView.getChildAt(0) as BottomNavigationMenuView
         // 获取所添加的Tab或者叫Menu
@@ -49,12 +52,12 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener,
 //        mBadgeView.visibility = View.GONE
     }
 
-    fun settingBadgeNumber(number: String) { // 设置角标数量
+    fun setBadgeNumber(number: String) { // 设置角标数量
         mBadgeView.visibility = View.VISIBLE
         mBadgeView.text = number
     }
 
-    fun settingBadgeNumber(number: Int) { // 设置角标数量
+    fun setBadgeNumber(number: Int) { // 设置角标数量
         mBadgeView.visibility = View.VISIBLE
         mBadgeView.text = number.toString()
     }
@@ -101,6 +104,7 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener,
                     1,
                     homeViewPager.currentItem == 0 || homeViewPager.currentItem == 2
                 )
+                handleCurrentItemAnimator(item)
                 return true
             }
             R.id.home_data -> {
@@ -108,6 +112,7 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener,
                     2,
                     homeViewPager.currentItem == 1 || homeViewPager.currentItem == 3
                 )
+                handleCurrentItemAnimator(item)
                 return true
             }
             R.id.home_me -> {
@@ -117,6 +122,33 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener,
         }
         return false
     }
+
+    private fun handleCurrentItemAnimator(item: MenuItem){
+        val menuItemView = findViewById<BottomNavigationItemView>(homeNavigationView.menu.findItem(item.itemId).itemId)
+        val menuIconView = menuItemView.findViewById<ImageView>(R.id.icon)
+        handleWithAnimatorSet(
+            handleBottomNavScaleAnimator(menuIconView, "T_SCALE_X"),
+            handleBottomNavScaleAnimator(menuIconView, "T_SCALE_Y"),
+            400
+        )
+    }
+
+    private fun handleBottomNavScaleAnimator(viewTarget: View, propertyName: String): ObjectAnimator {
+        return ObjectAnimator.ofFloat(viewTarget, propertyName, 1f, 1.1f, 0.9f, 1f)
+    }
+
+    private fun handleWithAnimatorSet(
+        playAnimator: ObjectAnimator,
+        afterAnimator: ObjectAnimator,
+        duration: Long
+    ) {
+        val animSet = AnimatorSet()
+        animSet.play(playAnimator)
+            .with(afterAnimator)
+        animSet.duration = duration
+        animSet.start()
+    }
+
 
     override fun onDestroy() {
         homeViewPager.removeOnPageChangeListener(this)
