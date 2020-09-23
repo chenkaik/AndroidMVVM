@@ -21,6 +21,7 @@ import kotlin.system.exitProcess
  * 默认会弹出系统中强制关闭对话框。我们需要实现此接口，并注册为程序中默认未捕获异常处理。
  * 这样当未捕获异常发生时，就可以做一些个性化的异常处理操作
  */
+@Suppress("DEPRECATION", "RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class CrashHandler
 /**
  * 保证只有一个CrashHandler实例
@@ -57,7 +58,7 @@ private constructor() : Thread.UncaughtExceptionHandler {
      *
      * @param context 上下文
      */
-    fun init(context: Context?) {
+    fun init(context: Context) {
         mContext = context
         // 获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler()

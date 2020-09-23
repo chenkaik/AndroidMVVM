@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.android.lib.util
 
 import android.content.Context
@@ -88,7 +90,7 @@ object NetworkUtil {
     fun isWifiAlwaysConnect(context: Context): Boolean {
         val cm =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return if (cm != null) {
+        return run {
             val info = cm.activeNetworkInfo
             if (info != null && info.type == ConnectivityManager.TYPE_WIFI) {
                 val wifiSleepPolicy = Settings.System.getInt(
@@ -101,19 +103,15 @@ object NetworkUtil {
                 }
             }
             true
-        } else {
-            false
         }
     }
 
     fun getNetworkName(context: Context): String {
         val cm =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return if (cm != null) {
+        return run {
             val info = cm.activeNetworkInfo
             if (info == null) "No network" else info.typeName
-        } else {
-            "No network"
         }
     }
 
@@ -126,12 +124,10 @@ object NetworkUtil {
     fun isNetworkAvailables(context: Context): Boolean {
         val connectivity =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivity != null) {
-            val info = connectivity.activeNetworkInfo
-            if (info != null && info.isConnected) { // 当前网络是连接的
-                if (info.state == NetworkInfo.State.CONNECTED) { // 当前所连接的网络可用
-                    return true
-                }
+        val info = connectivity.activeNetworkInfo
+        if (info != null && info.isConnected) { // 当前网络是连接的
+            if (info.state == NetworkInfo.State.CONNECTED) { // 当前所连接的网络可用
+                return true
             }
         }
         return false

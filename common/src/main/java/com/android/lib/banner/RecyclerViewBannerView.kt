@@ -27,8 +27,8 @@ class RecyclerViewBannerView @JvmOverloads constructor(
         if (bannerSize < 2) {
             return
         }
-        val firstReal = mLayoutManager!!.findFirstVisibleItemPosition()
-        val viewFirst = mLayoutManager?.findViewByPosition(firstReal)
+        val firstReal = mLayoutManager.findFirstVisibleItemPosition()
+        val viewFirst = mLayoutManager.findViewByPosition(firstReal)
         val width = width.toFloat()
         if (width != 0f && viewFirst != null) {
             val right = viewFirst.right.toFloat()
@@ -51,8 +51,8 @@ class RecyclerViewBannerView @JvmOverloads constructor(
         recyclerView: RecyclerView,
         newState: Int
     ) {
-        val first = mLayoutManager!!.findFirstVisibleItemPosition()
-        val last = mLayoutManager!!.findLastVisibleItemPosition()
+        val first = mLayoutManager.findFirstVisibleItemPosition()
+        val last = mLayoutManager.findLastVisibleItemPosition()
         if (currentIndex != first && first == last) {
             currentIndex = first
             refreshIndicator()

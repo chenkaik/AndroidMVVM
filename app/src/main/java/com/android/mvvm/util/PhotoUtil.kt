@@ -1,3 +1,5 @@
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package com.android.mvvm.util
 
 import android.annotation.SuppressLint
@@ -58,12 +60,12 @@ object PhotoUtil {
             return
         }
         val file = File(mPhotoPath)
-        if (!file.parentFile.exists()) {
-            file.parentFile.mkdirs()
+        if (!file.parentFile?.exists()!!) {
+            file.parentFile?.mkdirs()
         }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { // Android7.0以上URI
-// 添加这一句表示对目标应用临时授权该Uri所代表的文件
+            // 添加这一句表示对目标应用临时授权该Uri所代表的文件
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             // 通过FileProvider创建一个content类型的Uri activity.getPackageName()+".fileProvider"
             val uri = FileProvider.getUriForFile(

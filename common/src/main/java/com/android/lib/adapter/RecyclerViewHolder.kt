@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
  * date: 2019/1/30
  * desc: recyclerView公用的ViewHolder
  */
+@Suppress("UNCHECKED_CAST")
 class RecyclerViewHolder(private val mConvertView: View) :
     RecyclerView.ViewHolder(mConvertView) {
 

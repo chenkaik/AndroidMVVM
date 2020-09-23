@@ -47,8 +47,7 @@ object CheckUtil {
      * @return 结果
      */
     fun checkEmail(email: String): Boolean {
-        var flag = false
-        flag = try {
+        return try {
             val check =
                 "^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
             val regex = Pattern.compile(check)
@@ -57,7 +56,6 @@ object CheckUtil {
         } catch (e: Exception) {
             false
         }
-        return flag
     }
 
 }

@@ -387,7 +387,7 @@ class CommonAlertDialog {
             val dm = DisplayMetrics()
             val windowManager =
                 mContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            windowManager?.defaultDisplay?.getMetrics(dm)
+            windowManager.defaultDisplay?.getMetrics(dm)
             val window = mDialog!!.window
             if (window != null) {
                 val lp = window.attributes

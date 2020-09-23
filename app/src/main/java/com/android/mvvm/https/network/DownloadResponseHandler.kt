@@ -7,7 +7,7 @@ import java.io.File
  * desc: 下载文件回调
  */
 abstract class DownloadResponseHandler {
-    fun onStart(totalBytes: Long) {}
+    fun onStart() {}
     fun onCancel() {}
     abstract fun onFinish(downloadFile: File?)
     abstract fun onProgress(currentBytes: Long, totalBytes: Long)

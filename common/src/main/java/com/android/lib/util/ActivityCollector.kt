@@ -88,6 +88,7 @@ object ActivityCollector {
     /**
      * 退出应用程序
      */
+    @Suppress("DEPRECATION")
     fun AppExit(context: Context) {
         try {
             killAllActivity()
@@ -262,8 +263,8 @@ object ActivityCollector {
     fun goBlackPage(): Boolean {
         var b = false
         val size = size
-        var isEmpty = true
-        isEmpty = activityStack.isEmpty()
+//        var isEmpty = true
+        val isEmpty = activityStack.isEmpty()
         if (size > 0 && !isEmpty) {
             popActivityNoFinish()
             b = true

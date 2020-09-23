@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+        <com.android.lib.widget.NavigationBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <com.android.lib.banner.RecyclerViewBannerView
             android:id="@+id/banner"
             android:layout_width="match_parent"

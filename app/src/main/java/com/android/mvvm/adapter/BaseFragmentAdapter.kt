@@ -11,6 +11,7 @@ import java.util.*
  * date: 2019/3/8
  * desc: FragmentPagerAdapter 基类
  */
+@Suppress("UNCHECKED_CAST")
 class BaseFragmentAdapter<F : Fragment> : FragmentPagerAdapter {
 
     private val mFragmentSet: MutableList<F> = ArrayList() // Fragment集合

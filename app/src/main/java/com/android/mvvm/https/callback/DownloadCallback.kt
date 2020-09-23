@@ -15,6 +15,7 @@ import java.io.RandomAccessFile
  * date: 2019/2/18
  * desc: 下载进度回调
  */
+@Suppress("NAME_SHADOWING")
 class DownloadCallback(
     private val mDownloadResponseHandler: DownloadResponseHandler?,
     private val mFilePath: String,
@@ -41,11 +42,11 @@ class DownloadCallback(
             if (response.isSuccessful) { //开始
                 mHandler.post {
                     if (mDownloadResponseHandler != null && body != null) {
-                        mDownloadResponseHandler.onStart(body.contentLength())
+                        mDownloadResponseHandler.onStart()
                     }
                 }
                 try {
-                    if (response.header("Content-Range") == null || response.header("Content-Range")!!.length == 0) { //返回的没有Content-Range 不支持断点下载 需要重新下载
+                    if (response.header("Content-Range") == null || response.header("Content-Range")!!.isEmpty()) { //返回的没有Content-Range 不支持断点下载 需要重新下载
                         mCompleteBytes = 0L
                     }
                     saveFile(response, mFilePath, mCompleteBytes)
@@ -79,19 +80,19 @@ class DownloadCallback(
         filePath: String,
         completeBytes: Long
     ) {
-        var `is`: InputStream? = null
+        var stream: InputStream? = null
         val buf = ByteArray(4 * 1024) //每次读取4kb
         var len: Int
         var file: RandomAccessFile? = null
         try {
-            `is` = response.body!!.byteStream()
+            stream = response.body!!.byteStream()
             file = RandomAccessFile(filePath, "rwd")
             if (completeBytes > 0L) {
                 file.seek(completeBytes)
             }
             var complete_len: Long = 0
             val total_len = response.body!!.contentLength()
-            while (`is`.read(buf).also { len = it } != -1) {
+            while (stream.read(buf).also { len = it } != -1) {
                 file.write(buf, 0, len)
                 complete_len += len.toLong()
                 //已经下载完成写入文件的进度
@@ -102,11 +103,11 @@ class DownloadCallback(
             }
         } finally {
             try {
-                `is`?.close()
+                stream?.close()
                 file?.close()
             } catch (e: IOException) {
             }
-            //            try {
+//            try {
 //                if (file != null) file.close();
 //            } catch (IOException e) {
 //            }

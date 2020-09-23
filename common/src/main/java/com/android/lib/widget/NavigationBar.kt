@@ -54,15 +54,13 @@ class NavigationBar : FrameLayout {
             mRoot.findViewById<View>(R.id.navigation_title_bar_back_view) as TextView
         mBackButton =
             mRoot.findViewById<View>(R.id.navigation_title_bar_back) as ImageView
-        mLeftLinearLayout.setOnClickListener { v: View ->
-            backButtonOnClick(
-                v
-            )
+        mLeftLinearLayout.setOnClickListener {
+            backButtonOnClick()
         }
         addView(mRoot)
     }
 
-    private fun backButtonOnClick(v: View) {
+    private fun backButtonOnClick() {
         if (context is FragmentActivity) {
             val activity = context as FragmentActivity
             if (ActivityCollector.goBlackPage() && activity.supportFragmentManager.backStackEntryCount == 0) {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
  * date: 2019/1/30
  * desc: banner使用的baseAdapter
  */
+@Suppress("UNCHECKED_CAST")
 abstract class BaseBannerAdapter<VH : RecyclerView.ViewHolder>(
     protected var mContext: Context,
     protected var mUrlList: List<String>

@@ -1,3 +1,5 @@
+@file:Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package com.android.lib.util
 
 import android.annotation.SuppressLint
@@ -11,7 +13,9 @@ import java.util.*
  * desc: 日期处理相关
  */
 object DateUtil {
+
     private const val yyyyMMddHHmm = "yyyy-MM-dd HH:mm"
+
     @SuppressLint("SimpleDateFormat")
     fun currentTime(): String {
         val date = Date()
@@ -312,9 +316,9 @@ object DateUtil {
     var weekName =
         arrayOf("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
 
-    fun getMonthDays(year: Int, month: Int): Int {
-        var year = year
-        var month = month
+    fun getMonthDays(y: Int, m: Int): Int {
+        var year = y
+        var month = m
         if (month > 12) {
             month = 1
             year += 1
@@ -624,7 +628,8 @@ object DateUtil {
      * @param mss 毫秒数
      * @return 时间
      */
-    fun formatDateTimes(mss: Long): String { //        String dateTimes = "";
+    fun formatDateTimes(mss: Long): String {
+//        String dateTimes = "";
 //        long days = mss / (60 * 60 * 24);
 //        long hours = (mss % (60 * 60 * 24)) / (60 * 60);
 //        long minutes = (mss % (60 * 60)) / 60;
@@ -657,12 +662,13 @@ object DateUtil {
 //            }
 //        }
 //        return dateTimes;
-        var dateTimes = ""
+
+//        var dateTimes = ""
         val days = mss / (60 * 60 * 24)
         val hours = mss % (60 * 60 * 24) / (60 * 60)
         val minutes = mss % (60 * 60) / 60
         val seconds = mss % 60
-        dateTimes = when {
+        return when {
             days > 0 -> {
                 days.toString() + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒"
             }
@@ -676,7 +682,6 @@ object DateUtil {
                 seconds.toString() + "秒"
             }
         }
-        return dateTimes
     }
 
     /**
@@ -689,20 +694,20 @@ object DateUtil {
      * @return 几天 几个小时 或 几分钟
      */
     fun getDistanceTime(time1: Long, time2: Long): String {
-        var day: Long = 0
-        var hour: Long = 0
-        var min: Long = 0
-        var sec: Long = 0
-        var diff: Long = 0
-        diff = if (time1 < time2) {
+//        var day: Long = 0
+//        var hour: Long = 0
+//        var min: Long = 0
+//        var sec: Long = 0
+//        var diff: Long = 0
+        val diff = if (time1 < time2) {
             time2 - time1
         } else {
             time1 - time2
         }
-        day = diff / (24 * 60 * 60 * 1000)
-        hour = diff / (60 * 60 * 1000) - day * 24
-        min = diff / (60 * 1000) - day * 24 * 60 - hour * 60
-        sec = diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60
+        val day = diff / (24 * 60 * 60 * 1000)
+        val hour = diff / (60 * 60 * 1000) - day * 24
+        val min = diff / (60 * 1000) - day * 24 * 60 - hour * 60
+        val sec = diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60
         if (day != 0L) {
             return day.toString() + "天" + hour + "小时" + min + "分钟" + sec + "秒"
         }
