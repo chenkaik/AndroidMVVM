@@ -58,7 +58,7 @@ class FileDownloadTask(// 下载监听
                     .url(downloadUrl)
                     .build()
                 val response = client.newCall(request).execute()
-                val responseBody = response.body();
+                val responseBody = response.body
                 return if (responseBody != null) {
                     mIs = responseBody.byteStream()
                     mSaveFile = RandomAccessFile(mFile, "rw")
@@ -141,7 +141,7 @@ class FileDownloadTask(// 下载监听
             .build();
         val response = client.newCall(request).execute();
         if (response.isSuccessful) {
-            val responseBody = response.body();
+            val responseBody = response.body;
             return if (responseBody != null) {
                 val contentLength = responseBody.contentLength();
                 response.close();

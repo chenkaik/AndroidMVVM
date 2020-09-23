@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+//    buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 21
@@ -33,9 +33,9 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-//    api 'com.squareup.okhttp3:okhttp:4.4.0'
-//    api 'com.squareup.okio:okio:2.4.3'
-//    api 'com.squareup.okhttp3:logging-interceptor:4.4.0'
+    api 'com.squareup.okhttp3:okhttp:4.4.0'
+    api 'com.squareup.okio:okio:2.4.3'
+    api 'com.squareup.okhttp3:logging-interceptor:4.4.0'
     api 'com.squareup.retrofit2:retrofit:2.7.1'
     api 'com.squareup.retrofit2:converter-gson:2.7.1' // Gson的支持
     api 'com.squareup.retrofit2:converter-scalars:2.7.1' // String的支持
