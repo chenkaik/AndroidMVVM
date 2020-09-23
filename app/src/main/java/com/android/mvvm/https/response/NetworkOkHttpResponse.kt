@@ -22,7 +22,7 @@ interface NetworkOkHttpResponse {
     fun onDataSuccess(
         requestCode: Int,
         obj: Any?,
-        json: String?
+        json: String
     )
 
     /**

@@ -1,9 +1,10 @@
 package com.android.mvvm.https.builder
 
+import android.text.TextUtils
+import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.body.ResponseProgressBody
 import com.android.mvvm.https.callback.DownloadCallback
 import com.android.mvvm.https.network.DownloadResponseHandler
-import com.android.mvvm.https.network.NetWorkRequest
 import okhttp3.Call
 import okhttp3.Headers
 import okhttp3.Interceptor
@@ -15,7 +16,7 @@ import java.util.*
  * date: 2019/2/18
  * desc: download builder
  */
-class DownloadBuilder(private val request: NetWorkRequest) {
+class DownloadBuilder(private val request: NetWorkManager) {
 
     private var mUrl = ""
     private var mTag: Any? = null
@@ -24,6 +25,7 @@ class DownloadBuilder(private val request: NetWorkRequest) {
     private var mFileName = "" // 文件名
     private var mFilePath = "" // 文件路径 （如果设置该字段则上面2个就不需要）
     private var mCompleteBytes = 0L // 已经完成的字节数 用于断点续传
+
     fun url(url: String): DownloadBuilder {
         mUrl = url
         return this
@@ -123,7 +125,8 @@ class DownloadBuilder(private val request: NetWorkRequest) {
      */
     fun enqueue(downloadResponseHandler: DownloadResponseHandler): Call? {
         return try {
-//            require(mUrl.length != 0) { "Url can not be null !" }
+            // 参数为false时 抛出 IllegalArgumentException
+            require(!TextUtils.isEmpty(mUrl)) { "url can not be null !" }
             if (mFilePath.isEmpty()) {
                 mFilePath = if (mFileDir.isEmpty() || mFileName.isEmpty()) {
                     throw IllegalArgumentException("FilePath can not be null !")

@@ -1,5 +1,6 @@
 package com.android.mvvm.https.network
 
+import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.response.NetworkOkHttpResponse
 import okhttp3.Headers
 import okhttp3.Request
@@ -10,12 +11,12 @@ import java.util.*
  * desc: 不带param的base request body
  */
 @Suppress("UNCHECKED_CAST")
-abstract class OkHttpRequestBuilder<T : OkHttpRequestBuilder<T>>(workRequest: NetWorkRequest) {
+abstract class OkHttpRequestBuilder<T : OkHttpRequestBuilder<T>>(request: NetWorkManager) {
 
     protected lateinit var mUrl: String
     protected var mTag: Any? = null
     protected var mHeaders: MutableMap<String, String>? = null
-    protected var request: NetWorkRequest = workRequest
+    protected var mNetManager: NetWorkManager = request
 
     /**
      * 异步执行

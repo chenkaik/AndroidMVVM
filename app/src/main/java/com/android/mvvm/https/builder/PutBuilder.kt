@@ -1,8 +1,9 @@
 package com.android.mvvm.https.builder
 
+import android.text.TextUtils
 import com.android.lib.Logger.e
+import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.callback.OkHttpCallback
-import com.android.mvvm.https.network.NetWorkRequest
 import com.android.mvvm.https.network.OkHttpRequestBuilder
 import com.android.mvvm.https.response.NetworkOkHttpResponse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -13,7 +14,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
  * date: 2019/2/13
  * desc: put请求
  */
-class PutBuilder(request: NetWorkRequest) :
+class PutBuilder(request: NetWorkManager) :
     OkHttpRequestBuilder<PutBuilder>(request) {
 
     companion object {
@@ -25,7 +26,8 @@ class PutBuilder(request: NetWorkRequest) :
         okHttpResponse: NetworkOkHttpResponse
     ) {
         try {
-//            require(!(mUrl == null || mUrl.length == 0)) { "url can not be null !" }
+            // 参数为false时 抛出 IllegalArgumentException
+            require(!TextUtils.isEmpty(mUrl)) { "url can not be null !" }
             val builder = Request.Builder().url(mUrl)
             appendHeaders(builder, mHeaders) // 根据需要添加head
             if (mTag != null) {
@@ -34,7 +36,7 @@ class PutBuilder(request: NetWorkRequest) :
             val mediaType = "text/plain;charset=utf-8".toMediaTypeOrNull()
             builder.put("".toRequestBody(mediaType))
             val putRequest = builder.build()
-            request.okHttpClient
+            mNetManager.okHttpClient
                 .newCall(putRequest)
                 .enqueue(OkHttpCallback(requestCode, okHttpResponse))
         } catch (e: Exception) {

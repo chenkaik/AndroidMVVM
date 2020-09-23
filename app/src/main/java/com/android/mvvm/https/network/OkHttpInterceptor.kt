@@ -32,10 +32,10 @@ class OkHttpInterceptor : Interceptor {
         val headers = original.headers
         val newHeader =
             headers.newBuilder() //                .add("Authorization", "Bearer " + UserConfig.getInstance().getToken())
-                .add(
-                    "token",
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IjE1Njg2MjIxODEzIiwiZXhwIjoxNTg3MjcyMDM0LCJ1c2VySWQiOjEwfQ.DUjajZqGDmWnWiUaKFRWpISzf0zf0qN6hfE8uCDAXlk"
-                )
+//                .add(
+//                    "token",
+//                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IjE1Njg2MjIxODEzIiwiZXhwIjoxNTg3MjcyMDM0LCJ1c2VySWQiOjEwfQ.DUjajZqGDmWnWiUaKFRWpISzf0zf0qN6hfE8uCDAXlk"
+//                )
                 .build()
         val builder = original.newBuilder()
             .headers(newHeader)

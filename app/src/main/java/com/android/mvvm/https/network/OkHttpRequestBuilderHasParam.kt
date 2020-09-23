@@ -1,5 +1,6 @@
 package com.android.mvvm.https.network
 
+import com.android.mvvm.https.NetWorkManager
 import okhttp3.FormBody
 import okhttp3.MultipartBody
 import java.util.*
@@ -10,10 +11,11 @@ import java.util.*
  */
 @Suppress("UNCHECKED_CAST")
 abstract class OkHttpRequestBuilderHasParam<T : OkHttpRequestBuilderHasParam<T>>(
-    request: NetWorkRequest
+    request: NetWorkManager
 ) : OkHttpRequestBuilder<T>(request) {
 
     protected var mParams: MutableMap<String, String>? = null
+
     /**
      * set Map params
      *
@@ -52,11 +54,11 @@ abstract class OkHttpRequestBuilderHasParam<T : OkHttpRequestBuilderHasParam<T>>
      */
     fun appendParams(
         url: String,
-        params: Map<String, String>
+        params: Map<String, String>?
     ): String {
         var sb = StringBuilder()
         sb.append("$url?")
-        if (params.isNotEmpty()) {
+        if (params != null && params.isNotEmpty()) {
             for (key in params.keys) {
                 sb.append(key).append("=").append(params[key]).append("&")
             }
@@ -73,9 +75,9 @@ abstract class OkHttpRequestBuilderHasParam<T : OkHttpRequestBuilderHasParam<T>>
      */
     fun appendParams(
         builder: FormBody.Builder,
-        params: Map<String, String>
+        params: Map<String, String>?
     ) {
-        if (params.isNotEmpty()) {
+        if (params != null && params.isNotEmpty()) {
             for (key in params.keys) {
                 params[key]?.let { builder.add(key, it) }
             }
@@ -90,9 +92,9 @@ abstract class OkHttpRequestBuilderHasParam<T : OkHttpRequestBuilderHasParam<T>>
      */
     fun appendParams(
         builder: MultipartBody.Builder,
-        params: Map<String, String>
+        params: Map<String, String>?
     ) {
-        if (params.isNotEmpty()) {
+        if (params != null && params.isNotEmpty()) {
             for (key in params.keys) {
                 params[key]?.let { builder.addFormDataPart(key, it) }
             }

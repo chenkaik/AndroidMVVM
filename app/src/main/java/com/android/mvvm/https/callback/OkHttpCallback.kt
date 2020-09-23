@@ -2,8 +2,8 @@ package com.android.mvvm.https.callback
 
 import com.android.lib.Logger.e
 import com.android.lib.util.GsonUtil.fromJson
+import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.config.HttpConfig
-import com.android.mvvm.https.network.NetWorkRequest
 import com.android.mvvm.https.response.BaseResponse
 import com.android.mvvm.https.response.NetworkOkHttpResponse
 import okhttp3.Call
@@ -25,9 +25,10 @@ class OkHttpCallback(
     }
 
     private var mResponseBodyStr = ""
+
     override fun onFailure(call: Call, e: IOException) {
         e("onFailure: ", "警告,调用接口出错!", e)
-        NetWorkRequest.mHandler.post {
+        NetWorkManager.mHandler.post {
             mOkHttpResponse.onDataFailure(
                 mRequestCode,
                 400,
@@ -38,7 +39,7 @@ class OkHttpCallback(
     }
 
     override fun onResponse(call: Call, response: Response) {
-        e(TAG, "onResponse: 响应码" + response.code)
+        e(TAG, "ResponseCode: " + response.code)
         if (response.isSuccessful) { // code >= 200 && code < 300;
             val responseBody = response.body
             try {
@@ -48,20 +49,20 @@ class OkHttpCallback(
                         TAG,
                         "onResponse: $mResponseBodyStr"
                     )
-                    val baseResponse =
-                        fromJson(mResponseBodyStr, BaseResponse::class.java)
+                    val baseResponse = fromJson(mResponseBodyStr, BaseResponse::class.java)
                     if (baseResponse != null) {
-                        if (baseResponse.APP_HEAD != null) {
-                            if (HttpConfig.SUCCESS == baseResponse.SYS_HEAD.RET.RET_CODE) {
-                                NetWorkRequest.mHandler.post {
+                        when (baseResponse.SYS_HEAD.RET.RET_CODE) {
+                            HttpConfig.SUCCESS -> {
+                                NetWorkManager.mHandler.post {
                                     mOkHttpResponse.onDataSuccess(
                                         mRequestCode,
                                         null,
                                         mResponseBodyStr
                                     )
                                 }
-                            } else if (HttpConfig.TOKENERROR == baseResponse.SYS_HEAD.RET.RET_CODE) {
-                                NetWorkRequest.mHandler.post {
+                            }
+                            HttpConfig.TOKENERROR -> {
+                                NetWorkManager.mHandler.post {
                                     mOkHttpResponse.onDataFailure(
                                         mRequestCode,
                                         0,
@@ -69,8 +70,9 @@ class OkHttpCallback(
                                         true
                                     )
                                 }
-                            } else {
-                                NetWorkRequest.mHandler.post {
+                            }
+                            else -> {
+                                NetWorkManager.mHandler.post {
                                     mOkHttpResponse.onDataFailure(
                                         mRequestCode,
                                         0,
@@ -79,32 +81,23 @@ class OkHttpCallback(
                                     )
                                 }
                             }
-                        } else {
-                            NetWorkRequest.mHandler.post {
-                                mOkHttpResponse.onDataFailure(
-                                    mRequestCode,
-                                    0,
-                                    "数据解析异常!",
-                                    false
-                                )
-                            }
                         }
                     } else {
-                        NetWorkRequest.mHandler.post {
+                        NetWorkManager.mHandler.post {
                             mOkHttpResponse.onDataFailure(
                                 mRequestCode,
                                 0,
-                                "数据解析异常!",
+                                "数据解析有误!",
                                 false
                             )
                         }
                     }
                 } else {
-                    NetWorkRequest.mHandler.post {
+                    NetWorkManager.mHandler.post {
                         mOkHttpResponse.onDataFailure(
                             mRequestCode,
                             0,
-                            "响应异常!",
+                            "服务响应异常!",
                             false
                         )
                     }
@@ -114,11 +107,11 @@ class OkHttpCallback(
                     "onResponse",
                     "onResponse json fail status=" + response.code
                 )
-                NetWorkRequest.mHandler.post {
+                NetWorkManager.mHandler.post {
                     mOkHttpResponse.onDataFailure(
                         mRequestCode,
                         0,
-                        "数据异常!",
+                        "数据有误!",
                         false
                     )
                 }
@@ -127,7 +120,7 @@ class OkHttpCallback(
             }
         } else {
             e("onResponse", "onResponse fail status=" + response.code)
-            NetWorkRequest.mHandler.post {
+            NetWorkManager.mHandler.post {
                 mOkHttpResponse.onDataFailure(
                     mRequestCode,
                     500,

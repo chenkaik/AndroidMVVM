@@ -1,8 +1,9 @@
 package com.android.mvvm.https.builder
 
+import android.text.TextUtils
 import com.android.lib.Logger.e
+import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.callback.OkHttpCallback
-import com.android.mvvm.https.network.NetWorkRequest
 import com.android.mvvm.https.network.OkHttpRequestBuilderHasParam
 import com.android.mvvm.https.response.NetworkOkHttpResponse
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -18,7 +19,7 @@ import java.util.*
  * date: 2019/2/13
  * desc: 上传文件
  */
-class UploadBuilder(request: NetWorkRequest) :
+class UploadBuilder(request: NetWorkManager) :
     OkHttpRequestBuilderHasParam<UploadBuilder>(request) {
 
     companion object {
@@ -87,7 +88,8 @@ class UploadBuilder(request: NetWorkRequest) :
         okHttpResponse: NetworkOkHttpResponse
     ) {
         try {
-//            require(!(mUrl == null || mUrl.length == 0)) { "url can not be null !" }
+            // 参数为false时 抛出 IllegalArgumentException
+            require(!TextUtils.isEmpty(mUrl)) { "url can not be null !" }
             //            if (mParams != null && mParams.size() > 0) {
 //                mUrl = appendParams(mUrl, mParams); // 拼接参数(url后面)
 //            }
@@ -98,13 +100,13 @@ class UploadBuilder(request: NetWorkRequest) :
             }
             val multipartBuilder =
                 MultipartBody.Builder().setType(MultipartBody.FORM) // 表单类型
-            appendParams(multipartBuilder, mParams!!) // from参数
+            appendParams(multipartBuilder, mParams) // from参数
             // 拼装需要上传的文件参数,两种拼接上传文件的参数(二选其一)
             appendMapFiles(multipartBuilder, mFiles) // file文件
             appendListFiles(multipartBuilder, filePath) // 文件的路径
             builder.post(multipartBuilder.build())
             val uploadRequest = builder.build()
-            request.okHttpClient
+            mNetManager.okHttpClient
                 .newCall(uploadRequest)
                 .enqueue(OkHttpCallback(requestCode, okHttpResponse))
         } catch (e: Exception) {

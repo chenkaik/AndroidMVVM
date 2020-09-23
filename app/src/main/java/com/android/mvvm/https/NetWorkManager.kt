@@ -1,4 +1,4 @@
-package com.android.mvvm.https.network
+package com.android.mvvm.https
 
 import android.os.Handler
 import android.os.Looper
@@ -6,6 +6,7 @@ import com.android.lib.Logger.e
 import com.android.lib.util.NetErrStringUtil
 import com.android.mvvm.https.builder.*
 import com.android.mvvm.https.config.HttpConfig
+import com.android.mvvm.https.network.OkHttpInterceptor
 import com.android.mvvm.https.response.BaseResponse
 import com.android.mvvm.https.response.NetworkResponse
 
@@ -27,21 +28,21 @@ import java.util.concurrent.TimeUnit
  * date: 2019/1/30
  * desc: retrofit调用接口，支持网络请求缓存，自动添加和删除缓存，也可以手动cancel请求
  */
-class NetWorkRequest private constructor() {
+class NetWorkManager private constructor() {
     private val mRequestMap: MutableMap<String, MutableMap<Int, Call<*>>> =
         ConcurrentHashMap()
     private lateinit var mRetrofit: Retrofit
     private lateinit var mOkHttpClient: OkHttpClient
 
-    private object NetWorkRequestHolder {
-        val sInstance = NetWorkRequest()
+    private object NetWorkHolder {
+        val sInstance = NetWorkManager()
     }
 
     companion object {
-        private val TA = NetWorkRequest::class.java.simpleName
+        private val TA = NetWorkManager::class.java.simpleName
         var mHandler = Handler(Looper.getMainLooper())
-        val requestManager: NetWorkRequest
-            get() = NetWorkRequestHolder.sInstance
+        val instance: NetWorkManager
+            get() = NetWorkHolder.sInstance
     }
 
     /**
@@ -50,7 +51,7 @@ class NetWorkRequest private constructor() {
      * @param baseURL 接口地址
      */
     fun init(baseURL: String) {
-        synchronized(this@NetWorkRequest) {
+        synchronized(this@NetWorkManager) {
             mOkHttpClient =
                 OkHttpClient.Builder() //                    .cache(new Cache(new File(context.getExternalCacheDir(), "http_cache"), 1024 * 1024 * 100))
                     .readTimeout(HttpConfig.READ_TIMEOUT, TimeUnit.SECONDS)
@@ -320,8 +321,8 @@ class NetWorkRequest private constructor() {
      *
      * @return 构建post请求
      */
-    fun post(isForm: Boolean): PostBuilder {
-        return PostBuilder(this, isForm)
+    fun post(isNotForm: Boolean): PostBuilder {
+        return PostBuilder(this, isNotForm)
     }
 
     /**

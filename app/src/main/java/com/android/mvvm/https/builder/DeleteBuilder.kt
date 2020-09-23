@@ -1,8 +1,9 @@
 package com.android.mvvm.https.builder
 
+import android.text.TextUtils
 import com.android.lib.Logger.e
+import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.callback.OkHttpCallback
-import com.android.mvvm.https.network.NetWorkRequest
 import com.android.mvvm.https.network.OkHttpRequestBuilderHasParam
 import com.android.mvvm.https.response.NetworkOkHttpResponse
 import okhttp3.Request
@@ -11,7 +12,7 @@ import okhttp3.Request
  * date: 2019/2/13
  * desc: delete请求
  */
-class DeleteBuilder(request: NetWorkRequest) :
+class DeleteBuilder(request: NetWorkManager) :
     OkHttpRequestBuilderHasParam<DeleteBuilder>(request) {
 
     companion object {
@@ -23,14 +24,15 @@ class DeleteBuilder(request: NetWorkRequest) :
         okHttpResponse: NetworkOkHttpResponse
     ) {
         try {
-//            require(!(mUrl == null || mUrl.length == 0)) { "url can not be null !" }
+            // 参数为false时 抛出 IllegalArgumentException
+            require(!TextUtils.isEmpty(mUrl)) { "url can not be null !" }
             val builder = Request.Builder().url(mUrl).delete()
             appendHeaders(builder, mHeaders) // 根据需要添加head
             if (mTag != null) {
                 builder.tag(mTag)
             }
             val deleteRequest = builder.build()
-            request.okHttpClient
+            mNetManager.okHttpClient
                 .newCall(deleteRequest)
                 .enqueue(OkHttpCallback(requestCode, okHttpResponse))
         } catch (e: Exception) {

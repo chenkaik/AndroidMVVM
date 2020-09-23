@@ -11,13 +11,16 @@ import com.android.lib.banner.RecyclerViewBannerBaseView
 import com.android.lib.util.InputTextHelper
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
+import com.android.mvvm.https.NetWorkManager
+import com.android.mvvm.https.response.NetworkOkHttpResponse
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.json.JSONObject
 
 /**
  * date: 2020/9/21
  * desc: 首页
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseFragment(), NetworkOkHttpResponse {
 
     private var activity: MainActivity? = null
     private lateinit var inputTextHelper: InputTextHelper
@@ -61,9 +64,9 @@ class HomeFragment : BaseFragment() {
 //        "t".showToast(this)
 //        R.string.app_name.showToast(this)
 //        val dialog = CommonDialog(getMyActivity())
-        inputTextHelper = InputTextHelper(button)
+        inputTextHelper = InputTextHelper(button1)
         inputTextHelper.addViews(editText1, editText2)
-        button.setOnClickListener {
+        button1.setOnClickListener {
             //            dialog.showProgress("hh")
 //            dialog.showAlertDialog("提示","这是内容", View.OnClickListener {
 //                "确定".showToast()
@@ -72,7 +75,20 @@ class HomeFragment : BaseFragment() {
 //            })
 //            dialog.showOneAlertDialog("提示1","这是内容1",View.OnClickListener {
 //                "确定了".showToast()
-//            })
+//            }
+
+            val map = HashMap<String, String>()
+            map["username"] = "lixiangbin"
+            map["password"] = "shjacf"
+            NetWorkManager.instance
+                .post(true)
+                .url("https://www.shjacf.com/server/login")
+                .jsonParams(JSONObject(map as Map<*, *>).toString())
+                .tag(this)
+                .enqueue(1, this)
+        }
+        button2.setOnClickListener {
+
         }
 
     }
@@ -88,5 +104,17 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun getMyActivity() = activity ?: getActivity() as MainActivity
+
+    override fun onDataSuccess(requestCode: Int, obj: Any?, json: String) {
+        e(TAG, json)
+    }
+
+    override fun onDataFailure(
+        requestCode: Int,
+        responseCode: Int,
+        message: String?,
+        isOverdue: Boolean
+    ) {
+    }
 
 }
