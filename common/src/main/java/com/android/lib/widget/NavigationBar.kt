@@ -20,7 +20,6 @@ import com.android.lib.util.FragmentManagerUtil.hideSoftInput
  */
 class NavigationBar : FrameLayout {
 
-    private lateinit var mLayoutInflater: LayoutInflater
     private lateinit var mLeftLinearLayout: LinearLayout
     private lateinit var mCenterLinearLayout: LinearLayout
     private lateinit var mRightLinearLayout: LinearLayout
@@ -41,8 +40,7 @@ class NavigationBar : FrameLayout {
     }
 
     private fun initComponent() {
-        mLayoutInflater = LayoutInflater.from(context)
-        mRoot = mLayoutInflater.inflate(R.layout.navigation_bar, this, false) as LinearLayout
+        mRoot = LayoutInflater.from(context).inflate(R.layout.navigation_bar, this, false) as LinearLayout
         mLeftLinearLayout =
             mRoot.findViewById<View>(R.id.leftLinearLayout) as LinearLayout
         mCenterLinearLayout =
