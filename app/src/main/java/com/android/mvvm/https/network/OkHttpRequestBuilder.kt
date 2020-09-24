@@ -1,7 +1,7 @@
 package com.android.mvvm.https.network
 
 import com.android.mvvm.https.NetWorkManager
-import com.android.mvvm.https.response.NetworkOkHttpResponse
+import com.android.mvvm.https.response.OkHttpResponse
 import okhttp3.Headers
 import okhttp3.Request
 import java.util.*
@@ -24,7 +24,7 @@ abstract class OkHttpRequestBuilder<T : OkHttpRequestBuilder<T>>(request: NetWor
      * @param requestCode    区分请求的code
      * @param okHttpResponse 自定义回调
      */
-    abstract fun enqueue(requestCode: Int, okHttpResponse: NetworkOkHttpResponse)
+    abstract fun enqueue(requestCode: Int, okHttpResponse: OkHttpResponse)
 
     /**
      * set url

@@ -5,7 +5,7 @@ import com.android.lib.Logger.e
 import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.callback.OkHttpCallback
 import com.android.mvvm.https.network.OkHttpRequestBuilderHasParam
-import com.android.mvvm.https.response.NetworkOkHttpResponse
+import com.android.mvvm.https.response.OkHttpResponse
 import okhttp3.FormBody
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -38,7 +38,7 @@ class PostBuilder(request: NetWorkManager, private val isNotForm: Boolean) :
         return this
     }
 
-    override fun enqueue(requestCode: Int, okHttpResponse: NetworkOkHttpResponse) {
+    override fun enqueue(requestCode: Int, okHttpResponse: OkHttpResponse) {
         try {
             // 参数为false时 抛出 IllegalArgumentException
             require(!TextUtils.isEmpty(mUrl)) { "url can not be null !" }

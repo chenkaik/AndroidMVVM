@@ -5,7 +5,7 @@ import com.android.lib.util.GsonUtil.fromJson
 import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.config.HttpConfig
 import com.android.mvvm.https.response.BaseResponse
-import com.android.mvvm.https.response.NetworkOkHttpResponse
+import com.android.mvvm.https.response.OkHttpResponse
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -17,7 +17,7 @@ import java.io.IOException
  */
 class OkHttpCallback(
     private val mRequestCode: Int,
-    private val mOkHttpResponse: NetworkOkHttpResponse
+    private val mOkHttpResponse: OkHttpResponse
 ) : Callback {
 
     companion object {

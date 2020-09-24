@@ -5,7 +5,7 @@ import com.android.lib.Logger.e
 import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.callback.OkHttpCallback
 import com.android.mvvm.https.network.OkHttpRequestBuilderHasParam
-import com.android.mvvm.https.response.NetworkOkHttpResponse
+import com.android.mvvm.https.response.OkHttpResponse
 import okhttp3.Request
 
 /**
@@ -21,7 +21,7 @@ class DeleteBuilder(request: NetWorkManager) :
 
     override fun enqueue(
         requestCode: Int,
-        okHttpResponse: NetworkOkHttpResponse
+        okHttpResponse: OkHttpResponse
     ) {
         try {
             // 参数为false时 抛出 IllegalArgumentException

@@ -17,8 +17,8 @@ import com.android.mvvm.activity.HttpActivity
 import com.android.mvvm.entity.LoginResponse
 import com.android.mvvm.https.NetWorkManager
 import com.android.mvvm.https.response.BaseResponse
-import com.android.mvvm.https.response.NetworkOkHttpResponse
-import com.android.mvvm.https.response.NetworkResponse
+import com.android.mvvm.https.response.OkHttpResponse
+import com.android.mvvm.https.response.RetrofitResponse
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
 
@@ -26,7 +26,7 @@ import org.json.JSONObject
  * date: 2020/9/21
  * desc: 首页
  */
-class HomeFragment : BaseFragment(), NetworkOkHttpResponse, NetworkResponse {
+class HomeFragment : BaseFragment(), OkHttpResponse, RetrofitResponse {
 
     private var activity: MainActivity? = null
     private lateinit var inputTextHelper: InputTextHelper

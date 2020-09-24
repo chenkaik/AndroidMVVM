@@ -3,12 +3,12 @@ package com.android.mvvm.activity
 import android.view.View
 import com.android.mvvm.R
 import com.android.mvvm.https.response.BaseResponse
-import com.android.mvvm.https.response.NetworkOkHttpResponse
-import com.android.mvvm.https.response.NetworkResponse
+import com.android.mvvm.https.response.OkHttpResponse
+import com.android.mvvm.https.response.RetrofitResponse
 import kotlinx.android.synthetic.main.activity_http.*
 import kotlinx.android.synthetic.main.common_head_layout.*
 
-class HttpActivity : BaseActivity(), View.OnClickListener, NetworkResponse, NetworkOkHttpResponse {
+class HttpActivity : BaseActivity(), View.OnClickListener, RetrofitResponse, OkHttpResponse {
 
     override fun getLayoutId() = R.layout.activity_http
 

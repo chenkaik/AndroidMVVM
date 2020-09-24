@@ -9,7 +9,7 @@ import com.android.mvvm.https.config.ApiService
 import com.android.mvvm.https.config.HttpConfig
 import com.android.mvvm.https.network.OkHttpInterceptor
 import com.android.mvvm.https.response.BaseResponse
-import com.android.mvvm.https.response.NetworkResponse
+import com.android.mvvm.https.response.RetrofitResponse
 
 
 import okhttp3.OkHttpClient
@@ -104,7 +104,7 @@ class NetWorkManager private constructor() {
         TAG: String?,
         requestCode: Int,
         requestCall: Call<T>,
-        responseListener: NetworkResponse?,
+        responseListener: RetrofitResponse?,
         isShow: Boolean
     ) {
         if (responseListener == null) {
@@ -194,7 +194,7 @@ class NetWorkManager private constructor() {
         TAG: String?,
         requestCode: Int,
         requestCall: Call<T>,
-        responseListener: NetworkResponse?,
+        responseListener: RetrofitResponse?,
         isShow: Boolean
     ) {
         if (responseListener == null) {
