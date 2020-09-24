@@ -5,6 +5,7 @@ import android.os.Looper
 import com.android.lib.Logger.e
 import com.android.lib.util.NetErrStringUtil
 import com.android.mvvm.https.builder.*
+import com.android.mvvm.https.config.ApiService
 import com.android.mvvm.https.config.HttpConfig
 import com.android.mvvm.https.network.OkHttpInterceptor
 import com.android.mvvm.https.response.BaseResponse
@@ -33,6 +34,7 @@ class NetWorkManager private constructor() {
         ConcurrentHashMap()
     private lateinit var mRetrofit: Retrofit
     private lateinit var mOkHttpClient: OkHttpClient
+    private lateinit var mApiService: ApiService
 
     private object NetWorkHolder {
         val sInstance = NetWorkManager()
@@ -59,7 +61,8 @@ class NetWorkManager private constructor() {
                     .connectTimeout(
                         HttpConfig.CONNECT_TIMEOUT,
                         TimeUnit.SECONDS
-                    ) //                    .cookieJar(new CookieManager())
+                    )
+//                    .cookieJar(new CookieManager())
 //                    .authenticator(new AuthenticatorManager())
                     .addInterceptor(OkHttpInterceptor())
                     .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -70,12 +73,15 @@ class NetWorkManager private constructor() {
                 .addConverterFactory(ScalarsConverterFactory.create()) // 支持返回值为String
                 .client(mOkHttpClient)
                 .build()
+            mApiService = create(ApiService::class.java)
         }
     }
 
-    fun <T> create(tClass: Class<T>): T {
+    private fun <T> create(tClass: Class<T>): T {
         return mRetrofit.create(tClass)
     }
+
+    val service: ApiService get() = mApiService
 
 //    fun clearCookie() {
 //        (mOkHttpClient!!.cookieJar() as CookieManager).clearCookie()
@@ -98,7 +104,7 @@ class NetWorkManager private constructor() {
         TAG: String?,
         requestCode: Int,
         requestCall: Call<T>,
-        responseListener: NetworkResponse<T>?,
+        responseListener: NetworkResponse?,
         isShow: Boolean
     ) {
         if (responseListener == null) {
@@ -118,7 +124,7 @@ class NetWorkManager private constructor() {
                 call: Call<T>,
                 response: Response<T>
             ) {
-                e(TA, "响应码:" + response.code())
+                e(TA, "ResponseCode:" + response.code())
                 if (isShow) {
                     responseListener.dismissLoading()
                 }
@@ -129,25 +135,23 @@ class NetWorkManager private constructor() {
                         responseListener.onDataError(requestCode, response.code(), "数据加载失败", false)
                         return
                     }
-//                    if (result.SYS_HEAD != null && result.SYS_HEAD.RET != null) {
-                        when (result.SYS_HEAD.RET.RET_CODE) {
-                            HttpConfig.SUCCESS -> {
-                                result.requestCode = requestCode // 区分接口请求
-                                responseListener.onDataReady(result)
-                            }
-                            HttpConfig.TOKENERROR -> {
-                                responseListener.onDataError(requestCode, response.code(), "登录失效", true)
-                            }
-                            else -> {
-                                responseListener.onDataError(
-                                    requestCode,
-                                    response.code(),
-                                    result.SYS_HEAD.RET.RET_CODE + " " + result.SYS_HEAD.RET.RET_MSG,
-                                    false
-                                )
-                            }
+                    when (result.SYS_HEAD?.RET?.RET_CODE) {
+                        HttpConfig.SUCCESS -> {
+                            result.requestCode = requestCode // 区分接口请求
+                            responseListener.onDataReady(result)
                         }
-//                    }
+                        HttpConfig.TOKENERROR -> {
+                            responseListener.onDataError(requestCode, response.code(), "认证失效", true)
+                        }
+                        else -> {
+                            responseListener.onDataError(
+                                requestCode,
+                                response.code(),
+                                result.SYS_HEAD?.RET?.RET_CODE + " " + result.SYS_HEAD?.RET?.RET_MSG,
+                                false
+                            )
+                        }
+                    }
                 } else {
                     responseListener.onDataError(
                         requestCode,
@@ -190,7 +194,7 @@ class NetWorkManager private constructor() {
         TAG: String?,
         requestCode: Int,
         requestCall: Call<T>,
-        responseListener: NetworkResponse<T>?,
+        responseListener: NetworkResponse?,
         isShow: Boolean
     ) {
         if (responseListener == null) {

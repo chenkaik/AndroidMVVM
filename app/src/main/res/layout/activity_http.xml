@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.HttpActivity">
+
+    <include layout="@layout/common_head_layout" />
+
+    <Button
+        android:id="@+id/okHttp"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_80"
+        android:text="OkHttp登录"
+        android:textAllCaps="false" />
+
+
+    <Button
+        android:id="@+id/okHttpOther"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_80"
+        android:text="OkHttpOther"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/retrofit"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_80"
+        android:text="Retrofit登录"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/retrofitOther"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_80"
+        android:text="RetrofitOther"
+        android:textAllCaps="false" />
+
+</LinearLayout>

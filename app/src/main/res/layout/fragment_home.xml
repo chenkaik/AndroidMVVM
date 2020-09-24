@@ -5,10 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <com.android.lib.widget.NavigationBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
         <com.android.lib.banner.RecyclerViewBannerView
             android:id="@+id/banner"
             android:layout_width="match_parent"
@@ -48,13 +44,24 @@
             android:text="TEST1" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/http"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/buttonStyle"
             android:layout_marginLeft="@dimen/space_80"
             android:layout_marginTop="@dimen/space_60"
             android:layout_marginRight="@dimen/space_80"
-            android:text="TEST2" />
+            android:text="Http"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/buttonStyle"
+            android:layout_marginLeft="@dimen/space_80"
+            android:layout_marginTop="@dimen/space_60"
+            android:layout_marginRight="@dimen/space_80"
+            android:text="TEST3" />
 
 </LinearLayout>

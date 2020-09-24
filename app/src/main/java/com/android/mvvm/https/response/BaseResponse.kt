@@ -5,8 +5,8 @@ package com.android.mvvm.https.response
  * desc: 根据需要自由定制修改
  */
 open class BaseResponse(
-    val APP_HEAD: APPHEAD,
-    val SYS_HEAD: SYSHEAD
+    val APP_HEAD: APPHEAD? = null,
+    val SYS_HEAD: SYSHEAD? = null
 ) {
     // 接口请求requestCode,用于区分多个请求同时发起的情况
     var requestCode = 0

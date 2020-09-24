@@ -51,7 +51,7 @@ class OkHttpCallback(
                     )
                     val baseResponse = fromJson(mResponseBodyStr, BaseResponse::class.java)
                     if (baseResponse != null) {
-                        when (baseResponse.SYS_HEAD.RET.RET_CODE) {
+                        when (baseResponse.SYS_HEAD?.RET?.RET_CODE) {
                             HttpConfig.SUCCESS -> {
                                 NetWorkManager.mHandler.post {
                                     mOkHttpResponse.onDataSuccess(
@@ -76,7 +76,7 @@ class OkHttpCallback(
                                     mOkHttpResponse.onDataFailure(
                                         mRequestCode,
                                         0,
-                                        baseResponse.SYS_HEAD.RET.RET_CODE + " " + baseResponse.SYS_HEAD.RET.RET_MSG,
+                                        baseResponse.SYS_HEAD?.RET?.RET_CODE + " " + baseResponse.SYS_HEAD?.RET?.RET_MSG,
                                         false
                                     )
                                 }

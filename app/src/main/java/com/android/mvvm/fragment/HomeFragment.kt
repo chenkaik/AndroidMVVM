@@ -1,6 +1,7 @@
 package com.android.mvvm.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.android.lib.Logger.e
 import com.android.lib.banner.RecyclerViewBannerBaseView
+import com.android.lib.util.ActivityCollector
 import com.android.lib.util.InputTextHelper
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
+import com.android.mvvm.activity.HttpActivity
+import com.android.mvvm.entity.LoginResponse
 import com.android.mvvm.https.NetWorkManager
+import com.android.mvvm.https.response.BaseResponse
 import com.android.mvvm.https.response.NetworkOkHttpResponse
+import com.android.mvvm.https.response.NetworkResponse
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
 
@@ -20,7 +26,7 @@ import org.json.JSONObject
  * date: 2020/9/21
  * desc: 首页
  */
-class HomeFragment : BaseFragment(), NetworkOkHttpResponse {
+class HomeFragment : BaseFragment(), NetworkOkHttpResponse, NetworkResponse {
 
     private var activity: MainActivity? = null
     private lateinit var inputTextHelper: InputTextHelper
@@ -87,7 +93,17 @@ class HomeFragment : BaseFragment(), NetworkOkHttpResponse {
                 .tag(this)
                 .enqueue(1, this)
         }
-        button2.setOnClickListener {
+        http.setOnClickListener {
+            //            NetWorkManager.instance.asyncNetWork(
+//                TAG, 1, ApiManager
+//                    .service()
+//                    .login(LoginRequest("shjacf", "lixiangbin")), this, true
+//            )
+            val intent = Intent(getMyActivity(), HttpActivity::class.java)
+            ActivityCollector.startPage(getMyActivity(), intent, true)
+        }
+
+        button3.setOnClickListener {
 
         }
 
@@ -115,6 +131,31 @@ class HomeFragment : BaseFragment(), NetworkOkHttpResponse {
         message: String?,
         isOverdue: Boolean
     ) {
+    }
+
+    override fun onDataReady(response: BaseResponse) {
+        if (response.requestCode == 1) {
+            val res = response as LoginResponse
+            e(TAG, res.MSG_BODY.userName)
+            e(TAG, res.MSG_BODY.token)
+        }
+    }
+
+    override fun onDataError(
+        requestCode: Int,
+        responseCode: Int,
+        message: String?,
+        isOverdue: Boolean
+    ) {
+
+    }
+
+    override fun showLoading(msg: String?) {
+
+    }
+
+    override fun dismissLoading() {
+
     }
 
 }

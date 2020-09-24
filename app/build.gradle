@@ -21,7 +21,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false // 是否对代码进行混淆
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro' // 指定混淆的规则文件
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 指定混淆的规则文件
         }
     }
 

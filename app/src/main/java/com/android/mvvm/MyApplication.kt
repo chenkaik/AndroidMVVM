@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.android.lib.Logger
 import com.android.lib.util.CrashHandler
-import com.android.mvvm.https.NetWorkManager
+import com.android.mvvm.https.ApiManager
 import com.android.mvvm.https.config.HttpConfig
 
 /**
@@ -22,7 +22,7 @@ class MyApplication : Application() {
         context = applicationContext
         Logger.LOG_ENABLE = true
         CrashHandler.instance.init(context)
-        NetWorkManager.instance.init(HttpConfig.BASE_URL)
+        ApiManager.init(HttpConfig.BASE_URL)
     }
 
 }
