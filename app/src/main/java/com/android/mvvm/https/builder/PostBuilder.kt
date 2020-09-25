@@ -72,7 +72,7 @@ class PostBuilder(request: NetWorkManager, private val isNotForm: Boolean) :
                 .enqueue(OkHttpCallback(requestCode, okHttpResponse))
         } catch (e: Exception) {
             e(TAG, "Post enqueue error:" + e.message)
-            okHttpResponse.onDataFailure(requestCode, 0, e.message, false)
+            okHttpResponse.onDataFailure(requestCode, 0, "Post enqueue error", false)
         }
     }
 

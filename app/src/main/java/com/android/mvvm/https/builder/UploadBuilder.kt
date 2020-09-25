@@ -114,7 +114,7 @@ class UploadBuilder(request: NetWorkManager) :
                 TAG,
                 "Post Upload File enqueue error:" + e.message
             )
-            okHttpResponse.onDataFailure(requestCode, 0, e.message, false)
+            okHttpResponse.onDataFailure(requestCode, 0, "Post Upload File enqueue error", false)
         }
     }
 

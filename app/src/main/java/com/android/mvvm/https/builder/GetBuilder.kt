@@ -43,7 +43,7 @@ class GetBuilder(request: NetWorkManager) :
                 .enqueue(OkHttpCallback(requestCode, okHttpResponse))
         } catch (e: Exception) {
             e(TAG, "Get enqueue error:" + e.message)
-            okHttpResponse.onDataFailure(requestCode, 0, e.message, false)
+            okHttpResponse.onDataFailure(requestCode, 0, e.message + "Get enqueue error", false)
         }
     }
 

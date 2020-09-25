@@ -23,7 +23,7 @@ interface RetrofitResponse {
     fun onDataError(
         requestCode: Int,
         responseCode: Int,
-        message: String?,
+        message: String,
         isOverdue: Boolean
     )
 

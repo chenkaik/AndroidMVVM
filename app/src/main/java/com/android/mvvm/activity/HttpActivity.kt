@@ -14,6 +14,7 @@ import com.android.mvvm.https.response.BaseResponse
 import com.android.mvvm.https.response.OkHttpResponse
 import com.android.mvvm.https.response.RetrofitResponse
 import com.android.mvvm.util.UserConfig
+import com.android.mvvm.util.showToast
 import kotlinx.android.synthetic.main.activity_http.*
 import kotlinx.android.synthetic.main.common_head_layout.*
 import org.json.JSONObject
@@ -112,10 +113,10 @@ class HttpActivity : BaseActivity(), View.OnClickListener, RetrofitResponse, OkH
     override fun onDataError(
         requestCode: Int,
         responseCode: Int,
-        message: String?,
+        message: String,
         isOverdue: Boolean
     ) {
-
+        message.showToast()
     }
 
     override fun showLoading(msg: String?) {
@@ -157,10 +158,10 @@ class HttpActivity : BaseActivity(), View.OnClickListener, RetrofitResponse, OkH
     override fun onDataFailure(
         requestCode: Int,
         responseCode: Int,
-        message: String?,
+        message: String,
         isOverdue: Boolean
     ) {
-
+        message.showToast()
     }
 
 }

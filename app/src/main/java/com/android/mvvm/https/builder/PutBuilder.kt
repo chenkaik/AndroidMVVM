@@ -41,7 +41,7 @@ class PutBuilder(request: NetWorkManager) :
                 .enqueue(OkHttpCallback(requestCode, okHttpResponse))
         } catch (e: Exception) {
             e(TAG, "Put enqueue error:" + e.message)
-            okHttpResponse.onDataFailure(requestCode, 0, e.message, false)
+            okHttpResponse.onDataFailure(requestCode, 0, "Put enqueue error", false)
         }
     }
 

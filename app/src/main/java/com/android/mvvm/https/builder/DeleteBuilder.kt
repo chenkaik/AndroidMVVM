@@ -40,7 +40,7 @@ class DeleteBuilder(request: NetWorkManager) :
                 TAG,
                 "Delete enqueue error:" + e.message
             )
-            okHttpResponse.onDataFailure(requestCode, 0, e.message, false)
+            okHttpResponse.onDataFailure(requestCode, 0, "Delete enqueue error", false)
         }
     }
 

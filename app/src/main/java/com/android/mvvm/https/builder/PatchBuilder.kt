@@ -41,7 +41,7 @@ class PatchBuilder(request: NetWorkManager) :
                 .enqueue(OkHttpCallback(requestCode, okHttpResponse))
         } catch (e: Exception) {
             e(TAG, "Patch enqueue error:" + e.message)
-            okHttpResponse.onDataFailure(requestCode, 0, e.message, false)
+            okHttpResponse.onDataFailure(requestCode, 0, "Patch enqueue error", false)
         }
     }
 

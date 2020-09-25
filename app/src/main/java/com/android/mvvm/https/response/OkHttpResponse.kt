@@ -36,7 +36,7 @@ interface OkHttpResponse {
     fun onDataFailure(
         requestCode: Int,
         responseCode: Int,
-        message: String?,
+        message: String,
         isOverdue: Boolean
     ) //    /**
 //     * 显示dialog
