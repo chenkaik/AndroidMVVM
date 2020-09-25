@@ -8,12 +8,16 @@ import com.android.mvvm.https.response.BaseResponse
  */
 data class LoginResponse(
     val MSG_BODY: MSGBODY
-) : BaseResponse()
+) : BaseResponse() {
 
-data class MSGBODY(
-    val acctNo: String,
-    val orgId: String,
-    val token: String,
-    val userName: String,
-    val userType: String
-)
+
+    data class MSGBODY(
+        val acctNo: String,
+        val orgId: String,
+        val token: String,
+        val userName: String,
+        val userType: String
+    )
+
+}
+

@@ -14,19 +14,13 @@ import com.android.lib.util.InputTextHelper
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
 import com.android.mvvm.activity.HttpActivity
-import com.android.mvvm.entity.LoginResponse
-import com.android.mvvm.https.NetWorkManager
-import com.android.mvvm.https.response.BaseResponse
-import com.android.mvvm.https.response.OkHttpResponse
-import com.android.mvvm.https.response.RetrofitResponse
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.json.JSONObject
 
 /**
  * date: 2020/9/21
  * desc: 首页
  */
-class HomeFragment : BaseFragment(), OkHttpResponse, RetrofitResponse {
+class HomeFragment : BaseFragment() {
 
     private var activity: MainActivity? = null
     private lateinit var inputTextHelper: InputTextHelper
@@ -83,22 +77,9 @@ class HomeFragment : BaseFragment(), OkHttpResponse, RetrofitResponse {
 //                "确定了".showToast()
 //            }
 
-            val map = HashMap<String, String>()
-            map["username"] = "lixiangbin"
-            map["password"] = "shjacf"
-            NetWorkManager.instance
-                .post(true)
-                .url("https://www.shjacf.com/server/login")
-                .jsonParams(JSONObject(map as Map<*, *>).toString())
-                .tag(this)
-                .enqueue(1, this)
+
         }
         http.setOnClickListener {
-            //            NetWorkManager.instance.asyncNetWork(
-//                TAG, 1, ApiManager
-//                    .service()
-//                    .login(LoginRequest("shjacf", "lixiangbin")), this, true
-//            )
             val intent = Intent(getMyActivity(), HttpActivity::class.java)
             ActivityCollector.startPage(getMyActivity(), intent, true)
         }
@@ -121,41 +102,5 @@ class HomeFragment : BaseFragment(), OkHttpResponse, RetrofitResponse {
 
     private fun getMyActivity() = activity ?: getActivity() as MainActivity
 
-    override fun onDataSuccess(requestCode: Int, obj: Any?, json: String) {
-        e(TAG, json)
-    }
-
-    override fun onDataFailure(
-        requestCode: Int,
-        responseCode: Int,
-        message: String?,
-        isOverdue: Boolean
-    ) {
-    }
-
-    override fun onDataReady(response: BaseResponse) {
-        if (response.requestCode == 1) {
-            val res = response as LoginResponse
-            e(TAG, res.MSG_BODY.userName)
-            e(TAG, res.MSG_BODY.token)
-        }
-    }
-
-    override fun onDataError(
-        requestCode: Int,
-        responseCode: Int,
-        message: String?,
-        isOverdue: Boolean
-    ) {
-
-    }
-
-    override fun showLoading(msg: String?) {
-
-    }
-
-    override fun dismissLoading() {
-
-    }
 
 }

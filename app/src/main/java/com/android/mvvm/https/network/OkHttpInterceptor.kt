@@ -1,6 +1,7 @@
 package com.android.mvvm.https.network
 
 import com.android.lib.Logger.e
+import com.android.mvvm.util.UserConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -31,7 +32,8 @@ class OkHttpInterceptor : Interceptor {
         // 获取、修改请求头
         val headers = original.headers
         val newHeader =
-            headers.newBuilder() //                .add("Authorization", "Bearer " + UserConfig.getInstance().getToken())
+            headers.newBuilder()
+                .add("Authorization", "Bearer " + UserConfig.token)
 //                .add(
 //                    "token",
 //                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IjE1Njg2MjIxODEzIiwiZXhwIjoxNTg3MjcyMDM0LCJ1c2VySWQiOjEwfQ.DUjajZqGDmWnWiUaKFRWpISzf0zf0qN6hfE8uCDAXlk"

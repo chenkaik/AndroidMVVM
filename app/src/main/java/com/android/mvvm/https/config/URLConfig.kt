@@ -10,5 +10,10 @@ interface URLConfig {
          * 登录
          */
         const val login = "login"
+
+        /**
+         * 编号
+         */
+        const val number = "api-user/file/reference/{model}"
     }
 }
