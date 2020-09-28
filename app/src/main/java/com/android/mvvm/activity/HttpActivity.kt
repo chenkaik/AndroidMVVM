@@ -2,8 +2,10 @@ package com.android.mvvm.activity
 
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import com.android.lib.Logger
 import com.android.lib.util.GsonUtil
+import com.android.lib.util.kotlin.startActivity
 import com.android.mvvm.R
 import com.android.mvvm.entity.LoginResponse
 import com.android.mvvm.entity.NumberResponse
@@ -23,6 +25,9 @@ class HttpActivity : BaseActivity(), View.OnClickListener, RetrofitResponse, OkH
 
     companion object {
         private const val TAG = "HttpActivity"
+        fun actionStart(activity: FragmentActivity, isPutStack: Boolean) {
+            startActivity<HttpActivity>(activity, isPutStack)
+        }
     }
 
     override fun getLayoutId() = R.layout.activity_http

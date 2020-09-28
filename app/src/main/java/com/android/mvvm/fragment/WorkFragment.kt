@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import com.android.lib.Logger.e
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
+import com.android.mvvm.activity.BaseRecyclerViewActivity
+import kotlinx.android.synthetic.main.common_head_layout.*
+import kotlinx.android.synthetic.main.fragment_work.*
 
 /**
  * date: 2020/9/21
  * desc: 工作
  */
-class WorkFragment : BaseFragment() {
+class WorkFragment : BaseFragment(), View.OnClickListener {
 
     private var activity: MainActivity? = null
 
@@ -37,6 +40,9 @@ class WorkFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        navigationBar.hideLeftLayout()
+        navigationBar.setTitle("工作")
+        baseRecyclerView.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -44,6 +50,15 @@ class WorkFragment : BaseFragment() {
         e(TAG, "onResume: ")
     }
 
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.baseRecyclerView -> {
+                BaseRecyclerViewActivity.actionStart(getMyActivity(), true)
+            }
+        }
+    }
+
     private fun getMyActivity() = activity ?: getActivity() as MainActivity
+
 
 }

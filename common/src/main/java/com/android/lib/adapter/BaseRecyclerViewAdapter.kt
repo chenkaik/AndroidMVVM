@@ -7,7 +7,6 @@ import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.lib.Logger.e
-import java.util.*
 
 /**
  * date: 2019/1/30
@@ -15,58 +14,29 @@ import java.util.*
  * 封装了数据集合以及ItemView的点击事件回调,同时暴露 [.onBindData]
  * 用于数据与view绑定
  */
-abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerViewHolder>,
+abstract class BaseRecyclerViewAdapter<T>(
+    val context: Context,
+    data: List<T>?,
+    private val layoutId: Int,
+    onViewClickListener: OnViewClickListener? = null,
+    onMenuClickLister: OnMenuClickLister? = null
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     View.OnClickListener, OnLongClickListener {
 
-    private lateinit var mContext: Context
-    private lateinit var mData: List<T>
-    private var mLayoutId = 0
+    protected var mContext: Context = context
+    private var mData: List<T> = data ?: ArrayList<T>()
     private var mListener: OnItemClickListener? = null
     private var mLongListener: OnItemLongClickListener? = null
-    protected var mOnViewClickListener: OnViewClickListener? = null // item子view点击事件
+    protected var mOnViewClickListener: OnViewClickListener? = onViewClickListener // item子view点击事件
+    protected var mOnMenuClickLister: OnMenuClickLister? = onMenuClickLister // 侧滑菜单点击事件
 
     companion object {
         private const val TAG = "BaseRecyclerViewAdapter"
     }
 
-    constructor(
-        context: Context,
-        data: List<T>?,
-        layoutId: Int
-    ) {
-        init(context, data, layoutId)
-    }
-
-    constructor(
-        context: Context,
-        data: List<T>?,
-        layoutId: Int,
-        onViewClickListener: OnViewClickListener?
-    ) {
-        init(context, data, layoutId)
-        mOnViewClickListener = onViewClickListener
-    }
-
-    /**
-     * 初始化
-     *
-     * @param context  上下文
-     * @param data     数据源
-     * @param layoutId 布局id
-     */
-    private fun init(
-        context: Context,
-        data: List<T>?,
-        layoutId: Int
-    ) {
-        mContext = context
-        mData = data ?: ArrayList<T>()
-        mLayoutId = layoutId
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemView =
-            LayoutInflater.from(mContext).inflate(mLayoutId, parent, false)
+            LayoutInflater.from(mContext).inflate(layoutId, parent, false)
         if (mListener != null) {
             itemView.setOnClickListener(this)
         }
@@ -78,7 +48,7 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerViewHol
     }
 
     override fun onBindViewHolder(
-        holder: RecyclerViewHolder,
+        holder: RecyclerView.ViewHolder,
         position: Int
     ) {
         e(TAG, "onBindViewHolder $position");
@@ -110,7 +80,7 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerViewHol
      * 数据绑定，由实现类实现
      */
     protected abstract fun onBindData(
-        holder: RecyclerViewHolder,
+        holder: RecyclerView.ViewHolder,
         bean: T,
         position: Int
     )
@@ -148,19 +118,31 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerViewHol
         fun onViewClick(position: Int, type: Int)
     }
 
-    override fun onViewAttachedToWindow(holder: RecyclerViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        // 当Item进入这个页面的时候调用
+    /**
+     * item的侧滑菜单
+     */
+    interface OnMenuClickLister {
+        /**
+         * @param view click view
+         * @param position item position
+         * @param type menu type
+         */
+        fun onMenuClick(view: View?, position: Int, type: Int)
     }
 
-    override fun onViewDetachedFromWindow(holder: RecyclerViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        // 当Item离开这个页面的时候调用
-    }
-
-    override fun onViewRecycled(holder: RecyclerViewHolder) {
-        super.onViewRecycled(holder)
-        // 当Item被回收的时候调用
-    }
+//    override fun onViewAttachedToWindow(holder: RecyclerViewHolder) {
+//        super.onViewAttachedToWindow(holder)
+//        // 当Item进入这个页面的时候调用
+//    }
+//
+//    override fun onViewDetachedFromWindow(holder: RecyclerViewHolder) {
+//        super.onViewDetachedFromWindow(holder)
+//        // 当Item离开这个页面的时候调用
+//    }
+//
+//    override fun onViewRecycled(holder: RecyclerViewHolder) {
+//        super.onViewRecycled(holder)
+//        // 当Item被回收的时候调用
+//    }
 
 }

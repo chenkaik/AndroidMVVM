@@ -32,11 +32,11 @@ class LoadMoreWrapperAdapter(private val adapter: RecyclerView.Adapter<RecyclerV
     // 脚布局
     private val mTypeFooter = 2
     // 正在加载
-    private val loading = 1
+    val loading = 1
     // 加载完成
-    private val loadingComplete = 2
+    val loadingComplete = 2
     // 加载到底
-    private val loadingEnd = 3
+    val loadingEnd = 3
     // 当前加载状态，默认为加载完成
     private var loadState = 2
 

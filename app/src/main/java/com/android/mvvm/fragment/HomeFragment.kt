@@ -1,7 +1,6 @@
 package com.android.mvvm.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.android.lib.Logger.e
 import com.android.lib.banner.RecyclerViewBannerBaseView
-import com.android.lib.util.ActivityCollector
 import com.android.lib.util.InputTextHelper
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
@@ -80,8 +78,17 @@ class HomeFragment : BaseFragment() {
 
         }
         http.setOnClickListener {
-            val intent = Intent(getMyActivity(), HttpActivity::class.java)
-            ActivityCollector.startPage(getMyActivity(), intent, true)
+//            val intent = Intent(getMyActivity(), HttpActivity::class.java)
+//            ActivityCollector.startPage(getMyActivity(), intent, true)
+            HttpActivity.actionStart(getMyActivity(), true)
+//            startActivity<HttpActivity>(getMyActivity(), true)
+//            startActivity<HttpActivity>(getMyActivity(), true, 100)
+//            startActivity<HttpActivity>(getMyActivity(), true) {
+//                putExtra("test", "hello")
+//            }
+//            startActivity<HttpActivity>(getMyActivity(), true, 100) {
+//                putExtra("test", "hello")
+//            }
         }
 
         button3.setOnClickListener {

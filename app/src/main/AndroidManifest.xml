@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".activity.HttpActivity"/>
+        <activity android:name=".activity.BaseRecyclerViewActivity"/>
+        <activity android:name=".activity.HttpActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
