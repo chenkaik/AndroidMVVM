@@ -19,8 +19,7 @@ class SlideRecyclerView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyle: Int = 0
 ) : RecyclerView(context, attrs, defStyle) {
-    private var mVelocityTracker // 速度追踪器
-            : VelocityTracker? = null
+    private var mVelocityTracker: VelocityTracker? = null // 速度追踪器
     private var mTouchSlop: Int = 0 // 认为是滑动的最小距离（一般由系统提供）
 
     private var mTouchFrame: Rect? = null // 子View所在的矩形范围
@@ -66,28 +65,31 @@ class SlideRecyclerView @JvmOverloads constructor(
                     val view: View? = mFlingView
                     // 获取触碰点所在的view
                     mFlingView =
-                        getChildAt(mPosition - (layoutManager as LinearLayoutManager?)!!.findFirstVisibleItemPosition()) as ViewGroup
+                        getChildAt(
+                            mPosition - ((layoutManager as LinearLayoutManager?)?.findFirstVisibleItemPosition()
+                                ?: 0)
+                        ) as ViewGroup
                     // 这里判断一下如果之前触碰的view已经打开，而当前碰到的view不是那个view则立即关闭之前的view，此处并不需要担动画没完成冲突，因为之前已经abortAnimation
                     if (view != null && mFlingView !== view && view.scrollX != 0) {
                         view.scrollTo(0, 0)
                     }
                     // 这里进行了强制的要求，RecyclerView的子ViewGroup必须要有2个子view,这样菜单按钮才会有值，
-// 需要注意的是:如果不定制RecyclerView的子View，则要求子View必须要有固定的width。
-// 比如使用LinearLayout作为根布局，而content部分width已经是match_parent，此时如果菜单view用的是wrap_content，menu的宽度就会为0。
-                    mMenuViewWidth = if (mFlingView!!.childCount == 2) {
-                        mFlingView!!.getChildAt(1).width
+                    // 需要注意的是:如果不定制RecyclerView的子View，则要求子View必须要有固定的width。
+                    // 比如使用LinearLayout作为根布局，而content部分width已经是match_parent，此时如果菜单view用的是wrap_content，menu的宽度就会为0。
+                    mMenuViewWidth = if (mFlingView?.childCount == 2) {
+                        mFlingView?.getChildAt(1)?.width ?: 0
                     } else {
                         INVALID_CHILD_WIDTH
                     }
                 }
             }
             MotionEvent.ACTION_MOVE -> {
-                mVelocityTracker!!.computeCurrentVelocity(1000)
+                mVelocityTracker?.computeCurrentVelocity(1000)
                 // 此处有俩判断，满足其一则认为是侧滑：
-// 1.如果x方向速度大于y方向速度，且大于最小速度限制；
-// 2.如果x方向的侧滑距离大于y方向滑动距离，且x方向达到最小滑动距离；
-                val xVelocity = mVelocityTracker!!.xVelocity
-                val yVelocity = mVelocityTracker!!.yVelocity
+                // 1.如果x方向速度大于y方向速度，且大于最小速度限制；
+                // 2.如果x方向的侧滑距离大于y方向滑动距离，且x方向达到最小滑动距离；
+                val xVelocity = mVelocityTracker?.xVelocity ?: 0F
+                val yVelocity = mVelocityTracker?.yVelocity ?: 0F
                 if (abs(xVelocity) > SNAP_VELOCITY && abs(
                         xVelocity
                     ) > abs(yVelocity)
@@ -113,23 +115,23 @@ class SlideRecyclerView @JvmOverloads constructor(
                 MotionEvent.ACTION_MOVE ->  // 随手指滑动
                     if (mMenuViewWidth != INVALID_CHILD_WIDTH) {
                         val dx = mLastX - x
-                        if (mFlingView!!.scrollX + dx <= mMenuViewWidth
-                            && mFlingView!!.scrollX + dx > 0
+                        if ((mFlingView?.scrollX ?: 0) + dx <= mMenuViewWidth
+                            && (mFlingView?.scrollX ?: 0) + dx > 0
                         ) {
-                            mFlingView!!.scrollBy(dx.toInt(), 0)
+                            mFlingView?.scrollBy(dx.toInt(), 0)
                         }
                         mLastX = x
                     }
                 MotionEvent.ACTION_UP -> {
                     if (mMenuViewWidth != INVALID_CHILD_WIDTH) {
-                        val scrollX = mFlingView!!.scrollX
-                        mVelocityTracker!!.computeCurrentVelocity(1000)
+                        val scrollX = mFlingView?.scrollX ?: 0
+                        mVelocityTracker?.computeCurrentVelocity(1000)
                         // 此处有两个原因决定是否打开菜单：
                         // 1.菜单被拉出宽度大于菜单宽度一半；
                         // 2.横向滑动速度大于最小滑动速度；
                         // 注意：之所以要小于负值，是因为向左滑则速度为负值
                         when {
-                            mVelocityTracker!!.xVelocity < -SNAP_VELOCITY -> { // 向左侧滑达到侧滑最低速度，则打开
+                            mVelocityTracker?.xVelocity ?: 0F < -SNAP_VELOCITY -> { // 向左侧滑达到侧滑最低速度，则打开
                                 mScroller.startScroll(
                                     scrollX,
                                     0,
@@ -138,7 +140,7 @@ class SlideRecyclerView @JvmOverloads constructor(
                                     abs(mMenuViewWidth - scrollX)
                                 )
                             }
-                            mVelocityTracker!!.xVelocity >= SNAP_VELOCITY -> { // 向右侧滑达到侧滑最低速度，则关闭
+                            mVelocityTracker?.xVelocity ?: 0F >= SNAP_VELOCITY -> { // 向右侧滑达到侧滑最低速度，则关闭
                                 mScroller.startScroll(
                                     scrollX,
                                     0,
@@ -188,8 +190,8 @@ class SlideRecyclerView @JvmOverloads constructor(
 
     private fun releaseVelocity() {
         if (mVelocityTracker != null) {
-            mVelocityTracker!!.clear()
-            mVelocityTracker!!.recycle()
+            mVelocityTracker?.clear()
+            mVelocityTracker?.recycle()
             mVelocityTracker = null
         }
     }
@@ -198,12 +200,12 @@ class SlideRecyclerView @JvmOverloads constructor(
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain()
         }
-        mVelocityTracker!!.addMovement(event)
+        mVelocityTracker?.addMovement(event)
     }
 
-    fun pointToPosition(x: Int, y: Int): Int {
+    private fun pointToPosition(x: Int, y: Int): Int {
         val firstPosition =
-            (layoutManager as LinearLayoutManager?)!!.findFirstVisibleItemPosition()
+            (layoutManager as LinearLayoutManager?)?.findFirstVisibleItemPosition() ?: 0
         var frame = mTouchFrame
         if (frame == null) {
             mTouchFrame = Rect()
@@ -214,7 +216,7 @@ class SlideRecyclerView @JvmOverloads constructor(
             val child = getChildAt(i)
             if (child.visibility == View.VISIBLE) {
                 child.getHitRect(frame)
-                if (frame!!.contains(x, y)) {
+                if (frame?.contains(x, y) == true) {
                     return firstPosition + i
                 }
             }
@@ -224,7 +226,7 @@ class SlideRecyclerView @JvmOverloads constructor(
 
     override fun computeScroll() {
         if (mScroller.computeScrollOffset()) {
-            mFlingView!!.scrollTo(mScroller.currX, mScroller.currY)
+            mFlingView?.scrollTo(mScroller.currX, mScroller.currY)
             invalidate()
         }
     }
@@ -234,8 +236,8 @@ class SlideRecyclerView @JvmOverloads constructor(
      * 这里本身是要自己来实现的，但是由于不定制item，因此不好监听器点击事件，因此需要调用者手动的关闭
      */
     fun closeMenu() {
-        if (mFlingView != null && mFlingView!!.scrollX != 0) {
-            mFlingView!!.scrollTo(0, 0)
+        if (mFlingView != null && mFlingView?.scrollX != 0) {
+            mFlingView?.scrollTo(0, 0)
         }
     }
 
