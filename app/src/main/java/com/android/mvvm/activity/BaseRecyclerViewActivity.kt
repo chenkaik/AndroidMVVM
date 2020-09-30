@@ -1,5 +1,6 @@
 package com.android.mvvm.activity
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -40,12 +41,27 @@ class BaseRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
         baseRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
+    @SuppressLint("InflateParams")
     override fun initData() {
         getData()
         baseRecyclerAdapter = BaseRecyclerAdapter(this, list, this, this)
         baseRecyclerAdapter.setOnItemClickListener(this)
         baseRecyclerAdapter.setOnItemLongClickListener(this)
         loadMoreWrapperAdapter = LoadMoreWrapperAdapter(baseRecyclerAdapter)
+//        val headView = LayoutInflater.from(this).inflate(R.layout.add_head_layout, null)
+//        headView.findViewById<Button>(R.id.btn_test1).setOnClickListener {
+//            "测试1".showToast()
+//        }
+//        headView.findViewById<Button>(R.id.btn_test2).setOnClickListener {
+//            "测试2".showToast()
+//        }
+//        val params = ViewGroup.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT
+//        )
+//        headView.layoutParams = params
+////        loadMoreWrapperAdapter.addHeaderView(headView)
+//        baseRecyclerView.addHeaderView(headView)
         baseRecyclerView.adapter = loadMoreWrapperAdapter
         baseRecyclerView.addOnScrollListener(object : EndlessRecyclerOnScrollListener() {
             override fun onLoadMore() {

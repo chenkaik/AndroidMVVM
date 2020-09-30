@@ -9,6 +9,7 @@ import com.android.lib.Logger.e
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
 import com.android.mvvm.activity.BaseRecyclerViewActivity
+import com.android.mvvm.activity.HeadRecyclerViewActivity
 import kotlinx.android.synthetic.main.common_head_layout.*
 import kotlinx.android.synthetic.main.fragment_work.*
 
@@ -42,7 +43,8 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
         navigationBar.hideLeftLayout()
         navigationBar.setTitle("工作")
-        baseRecyclerView.setOnClickListener(this)
+        baseRecyclerViewBtn.setOnClickListener(this)
+        headRecyclerViewBtn.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -52,8 +54,11 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.baseRecyclerView -> {
+            R.id.baseRecyclerViewBtn -> {
                 BaseRecyclerViewActivity.actionStart(getMyActivity(), true)
+            }
+            R.id.headRecyclerViewBtn -> {
+                HeadRecyclerViewActivity.actionStart(getMyActivity(), true)
             }
         }
     }

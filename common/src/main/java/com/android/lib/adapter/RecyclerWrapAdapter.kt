@@ -63,22 +63,15 @@ class RecyclerWrapAdapter(
             return
         }
         val adjPosition = position - numHeaders
-        var adapterCount = 0
-        if (wrappedAdapter != null) {
-            adapterCount = wrappedAdapter.itemCount
-            if (adjPosition < adapterCount) {
-                this.wrappedAdapter.onBindViewHolder(holder, adjPosition)
-                return
-            }
+        val adapterCount: Int = wrappedAdapter.itemCount
+        if (adjPosition < adapterCount) {
+            this.wrappedAdapter.onBindViewHolder(holder, adjPosition)
+            return
         }
     }
 
     override fun getItemCount(): Int { // 对Adapter的count进行了重新计算
-        return if (wrappedAdapter != null) {
-            headersCount + footersCount + wrappedAdapter.itemCount
-        } else {
-            headersCount + footersCount
-        }
+        return headersCount + footersCount + wrappedAdapter.itemCount
     }
 
     /**
@@ -98,19 +91,16 @@ class RecyclerWrapAdapter(
             return RecyclerView.INVALID_TYPE
         }
         val adjPosition = position - numHeaders
-        var adapterCount = 0
-        if (wrappedAdapter != null) {
-            adapterCount = wrappedAdapter.itemCount
-            if (adjPosition < adapterCount) {
-                return wrappedAdapter.getItemViewType(adjPosition)
-            }
+        val adapterCount: Int = wrappedAdapter.itemCount
+        if (adjPosition < adapterCount) {
+            return wrappedAdapter.getItemViewType(adjPosition)
         }
         return RecyclerView.INVALID_TYPE - 1
     }
 
     override fun getItemId(position: Int): Long {
         val numHeaders = headersCount
-        if (wrappedAdapter != null && position >= numHeaders) {
+        if (position >= numHeaders) {
             val adjPosition = position - numHeaders
             val adapterCount = wrappedAdapter.itemCount
             if (adjPosition < adapterCount) {
@@ -120,8 +110,8 @@ class RecyclerWrapAdapter(
         return -1
     }
 
-    private class HeaderViewHolder(itemView: View?) :
-        RecyclerView.ViewHolder(itemView!!)
+    private inner class HeaderViewHolder(itemView: View) :
+        RecyclerView.ViewHolder(itemView)
 
 
 }
