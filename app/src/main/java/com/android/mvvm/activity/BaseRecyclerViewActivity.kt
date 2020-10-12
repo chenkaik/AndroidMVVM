@@ -1,7 +1,10 @@
 package com.android.mvvm.activity
 
 import android.annotation.SuppressLint
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,19 +51,19 @@ class BaseRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
         baseRecyclerAdapter.setOnItemClickListener(this)
         baseRecyclerAdapter.setOnItemLongClickListener(this)
         loadMoreWrapperAdapter = LoadMoreWrapperAdapter(baseRecyclerAdapter)
-//        val headView = LayoutInflater.from(this).inflate(R.layout.add_head_layout, null)
-//        headView.findViewById<Button>(R.id.btn_test1).setOnClickListener {
-//            "测试1".showToast()
-//        }
-//        headView.findViewById<Button>(R.id.btn_test2).setOnClickListener {
-//            "测试2".showToast()
-//        }
-//        val params = ViewGroup.LayoutParams(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT
-//        )
-//        headView.layoutParams = params
-////        loadMoreWrapperAdapter.addHeaderView(headView)
+        val headView = LayoutInflater.from(this).inflate(R.layout.add_head_layout, null)
+        headView.findViewById<Button>(R.id.btn_test1).setOnClickListener {
+            "测试1".showToast()
+        }
+        headView.findViewById<Button>(R.id.btn_test2).setOnClickListener {
+            "测试2".showToast()
+        }
+        val params = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        headView.layoutParams = params
+        loadMoreWrapperAdapter.addHeaderView(headView)
 //        baseRecyclerView.addHeaderView(headView)
         baseRecyclerView.adapter = loadMoreWrapperAdapter
         baseRecyclerView.addOnScrollListener(object : EndlessRecyclerOnScrollListener() {
@@ -123,7 +126,7 @@ class BaseRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
                 "侧滑添加$position".showToast()
             }
         }
-        baseRecyclerView.closeMenu()
+//        baseRecyclerView.closeMenu()
     }
 
 }

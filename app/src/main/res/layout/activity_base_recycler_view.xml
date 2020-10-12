@@ -15,19 +15,19 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/space_16">
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/baseRecyclerView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:overScrollMode="never"-->
-<!--            android:scrollbars="none" />-->
-
-        <com.android.lib.widget.SlideRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/baseRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:scrollbars="none" />
+
+<!--        <com.android.lib.widget.SlideRecyclerView-->
+<!--            android:id="@+id/baseRecyclerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:overScrollMode="never"-->
+<!--            android:scrollbars="none" />-->
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
