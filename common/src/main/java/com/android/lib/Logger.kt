@@ -4,7 +4,7 @@ import android.util.Log
 
 /**
  * date: 2020/8/9
- * desc: 统一日志类
+ * desc: 统一日志打印
  */
 object Logger {
 

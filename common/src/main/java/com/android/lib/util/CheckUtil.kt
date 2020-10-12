@@ -5,7 +5,7 @@ import java.util.regex.Pattern
 
 /**
  * date: 2020/8/5
- * desc: 校验工具类
+ * desc: 校验密码及邮箱
  */
 object CheckUtil {
 
