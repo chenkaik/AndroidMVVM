@@ -50,6 +50,12 @@ object Permission {
         "android.permission.WRITE_EXTERNAL_STORAGE" // 写入外部存储
 
     object Group {
+
+        // 相机
+        val CAMERA = arrayOf(
+            Permission.CAMERA
+        )
+
         // 日历
         val CALENDAR = arrayOf(
             READ_CALENDAR,

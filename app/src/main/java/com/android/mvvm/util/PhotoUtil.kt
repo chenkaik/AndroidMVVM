@@ -16,7 +16,7 @@ import java.util.*
 
 /**
  * date: 2019/1/30
- * desc: 选择系统相册图片及拍照的工具类
+ * desc: 选择系统相册图片及拍照
  */
 object PhotoUtil {
 
@@ -80,7 +80,6 @@ object PhotoUtil {
         try {
             activity.startActivityForResult(intent, CAMERA_CODE_PHOTO)
         } catch (anf: Exception) {
-//            Toast.makeText(activity, "摄像头未准备好", Toast.LENGTH_SHORT).show()
             //ActivityNotFoundException
             anf.printStackTrace()
         }
