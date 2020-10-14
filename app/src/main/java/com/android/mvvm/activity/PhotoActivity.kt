@@ -180,7 +180,8 @@ class PhotoActivity : BaseActivity(), View.OnClickListener {
                 fos.close()
                 bis.close()
                 runOnUiThread {
-                    Toast.makeText(this, "Copy file into $tempDir succeeded.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Copy file into $tempDir succeeded.", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }
