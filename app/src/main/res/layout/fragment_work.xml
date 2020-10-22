@@ -37,7 +37,18 @@
         android:layout_marginLeft="@dimen/space_80"
         android:layout_marginTop="@dimen/space_60"
         android:layout_marginRight="@dimen/space_80"
-        android:text="选择图片"
+        android:text="图片选择"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/permissionBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/buttonStyle"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_80"
+        android:text="权限"
         android:textAllCaps="false"/>
 
 </LinearLayout>

@@ -10,6 +10,7 @@ import com.android.mvvm.MainActivity
 import com.android.mvvm.R
 import com.android.mvvm.activity.BaseRecyclerViewActivity
 import com.android.mvvm.activity.HeadRecyclerViewActivity
+import com.android.mvvm.activity.PermissionActivity
 import com.android.mvvm.activity.PhotoActivity
 import kotlinx.android.synthetic.main.common_head_layout.*
 import kotlinx.android.synthetic.main.fragment_work.*
@@ -47,6 +48,7 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
         baseRecyclerViewBtn.setOnClickListener(this)
         headRecyclerViewBtn.setOnClickListener(this)
         selectedImgBtn.setOnClickListener(this)
+        permissionBtn.setOnClickListener(this)
     }
 
     override fun onResume() {
@@ -64,6 +66,9 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
             }
             R.id.selectedImgBtn -> {
                 PhotoActivity.actionStart(getMyActivity(), true)
+            }
+            R.id.permissionBtn -> {
+                PermissionActivity.actionStart(getMyActivity(), true)
             }
         }
     }

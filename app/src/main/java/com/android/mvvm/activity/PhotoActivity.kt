@@ -20,6 +20,7 @@ import com.android.mvvm.R
 import com.android.mvvm.util.PhotoUtil
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_photo.*
+import kotlinx.android.synthetic.main.common_head_layout.*
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.File
@@ -45,6 +46,7 @@ class PhotoActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun initData() {
+        navigationBar.setTitle("图片选择")
     }
 
     override fun onClick(v: View) {

@@ -5,35 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.PhotoActivity">
+    tools:context=".activity.PermissionActivity">
 
     <include layout="@layout/common_head_layout"/>
 
     <Button
-        android:id="@+id/camera"
+        android:id="@+id/requestPermission"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/buttonStyle"
         android:layout_marginLeft="@dimen/space_80"
         android:layout_marginTop="@dimen/space_60"
         android:layout_marginRight="@dimen/space_80"
-        android:text="相机" />
-
-    <Button
-        android:id="@+id/album"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/buttonStyle"
-        android:layout_marginLeft="@dimen/space_80"
-        android:layout_marginTop="@dimen/space_60"
-        android:layout_marginRight="@dimen/space_80"
-        android:text="相册"
+        android:text="请求权限"
         android:textAllCaps="false"/>
-
-    <ImageView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_20"/>
 
 </LinearLayout>
