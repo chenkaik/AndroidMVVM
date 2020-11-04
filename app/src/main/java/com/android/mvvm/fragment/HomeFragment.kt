@@ -44,10 +44,9 @@ class HomeFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val viewRes: MutableList<String> = ArrayList()
-        viewRes.add("http://www.3goodsoft.net/sys/static/sanhao/h5/img/banner3.png")
-        viewRes.add("http://www.3goodsoft.net/sys/static/sanhao/h5/img/banner1.png?v=1")
-        viewRes.add("http://www.3goodsoft.net/sys/static/sanhao/h5/img/banner0.png")
-        viewRes.add("http://www.3goodsoft.net/sys/static/sanhao/h5/img/banner4.png")
+        viewRes.add("https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/676ddccc418842904f82ccdc66bbaa34.jpg?w=2452&h=920")
+        viewRes.add("https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/cf6ba4d372b80e939104cf369f14139a.jpg?thumb=1&w=1226&h=460&f=webp&q=90")
+        viewRes.add("https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fe25c546580ff179bf6e60fb54d7afd4.jpg?thumb=1&w=1226&h=460&f=webp&q=90")
         banner.initBannerImageView(viewRes,
             object : RecyclerViewBannerBaseView.OnBannerItemClickListener {
                 override fun onItemClick(position: Int) {
@@ -63,7 +62,7 @@ class HomeFragment : BaseFragment() {
 //        R.string.app_name.showToast(this)
 //        val dialog = CommonDialog(getMyActivity())
         inputTextHelper = InputTextHelper(button1)
-        inputTextHelper.addViews(editText1, editText2)
+        inputTextHelper.addViews(et_register_phone, et_register_code)
         button1.setOnClickListener {
             //            dialog.showProgress("hh")
 //            dialog.showAlertDialog("提示","这是内容", View.OnClickListener {

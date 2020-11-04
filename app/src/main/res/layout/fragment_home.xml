@@ -5,63 +5,95 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-        <com.android.lib.banner.RecyclerViewBannerView
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_320"
-            app:orientation="horizontal"/>
+    <com.android.lib.banner.RecyclerViewBannerView
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_320"
+        app:orientation="horizontal" />
 
-        <com.android.lib.util.ClearEditText
-            android:id="@+id/editText1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入"
-            android:gravity="right"
-            android:layout_marginTop="@dimen/space_30"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginRight="@dimen/space_80"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <com.android.lib.util.ClearEditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入"/>
-
-        <com.android.lib.util.CountdownView
-            android:id="@+id/cv_register_countdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/space_20"
-            android:text="发送验证码"
-            android:textColor="@color/colorAccent" />
-
-        <Button
-            android:id="@+id/button1"
+        <LinearLayout
+            android:id="@+id/ll_register_edit1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/buttonStyle"
-            android:layout_marginLeft="@dimen/space_80"
             android:layout_marginTop="@dimen/space_60"
-            android:layout_marginRight="@dimen/space_80"
-            android:text="TEST1" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/http"
+            <com.android.lib.util.ClearEditText
+                android:id="@+id/et_register_phone"
+                style="@style/EditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入手机号码" />
+
+
+            <com.android.lib.util.CountdownView
+                android:id="@+id/cv_register_countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_20"
+                android:text="发送验证码"
+                android:textColor="@color/colorAccent" />
+
+        </LinearLayout>
+
+        <View style="@style/HorizontalLineStyle" />
+
+        <EditText
+            android:id="@+id/et_register_code"
+            style="@style/EditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/buttonStyle"
-            android:layout_marginLeft="@dimen/space_80"
-            android:layout_marginTop="@dimen/space_60"
-            android:layout_marginRight="@dimen/space_80"
-            android:text="Http"
-            android:textAllCaps="false"/>
+            android:layout_marginTop="@dimen/space_40"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="8"
+            android:maxLines="1" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/buttonStyle"
-            android:layout_marginLeft="@dimen/space_80"
-            android:layout_marginTop="@dimen/space_60"
-            android:layout_marginRight="@dimen/space_80"
-            android:text="TEST3" />
+        <View style="@style/HorizontalLineStyle" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button1"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_80"
+        android:text="Register"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/http"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_80"
+        android:text="Http"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/buttonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_80"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_80"
+        android:text="Test" />
 
 </LinearLayout>
