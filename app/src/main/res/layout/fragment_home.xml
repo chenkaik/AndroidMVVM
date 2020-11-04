@@ -33,8 +33,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="请输入手机号码" />
-
+                android:hint="请输入手机号码"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:maxLines="1"/>
 
             <com.android.lib.util.CountdownView
                 android:id="@+id/cv_register_countdown"
@@ -62,7 +64,6 @@
         <View style="@style/HorizontalLineStyle" />
 
     </LinearLayout>
-
 
     <Button
         android:id="@+id/button1"
