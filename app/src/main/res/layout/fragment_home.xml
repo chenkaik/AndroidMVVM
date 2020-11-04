@@ -94,6 +94,7 @@
         android:layout_marginLeft="@dimen/space_80"
         android:layout_marginTop="@dimen/space_60"
         android:layout_marginRight="@dimen/space_80"
-        android:text="Test" />
+        android:text="Test"
+        android:textAllCaps="false"/>
 
 </LinearLayout>
