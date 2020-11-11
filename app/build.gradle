@@ -9,13 +9,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 29 // 编译时用的Android版本
+    compileSdkVersion COMPILE_SDK_VERSION as int // 编译时用的Android版本
     defaultConfig {
         applicationId "com.android.mvvm" // 包名
-        minSdkVersion 21 // 最低兼容的版本
-        targetSdkVersion 29 // 目标版本
-        versionCode 1 // 版本号
-        versionName "1.0.0" // 版本名称
+        minSdkVersion MIN_SDK_VERSION as int // 最低兼容的版本
+        targetSdkVersion TARGET_SDK_VERSION as int // 目标版本
+        versionCode VERSION_CODE as int // 版本号
+        versionName VERSION_NAME // 版本名称
         // 表明要使用AndroidJUnitRunner进行单元测试
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
