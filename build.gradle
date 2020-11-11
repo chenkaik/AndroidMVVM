@@ -10,8 +10,8 @@ buildscript { // 这里是gradle脚本执行所需依赖，分别是对应的mav
 //        maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
     }
     dependencies { // 配置构建工具
-        // 声明了一个Gradle插件，由于Gradle并不只是用来构建Android项目，因此此处引入相关插件来构建Android项目，其中'3.5.0'为该插件的版本号，可以根据最新的版本号来调整。
-        classpath 'com.android.tools.build:gradle:4.1.0' // 此处是android的插件gradle，gradle是一个强大的项目构建工具
+        // 声明了一个Gradle插件，由于Gradle并不只是用来构建Android项目，因此此处引入相关插件来构建Android项目，其中'4.1.1'为该插件的版本号，可以根据最新的版本号来调整。
+        classpath 'com.android.tools.build:gradle:4.1.1' // 此处是android的插件gradle，gradle是一个强大的项目构建工具
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // kotlin插件
 
         // NOTE: Do not place your application dependencies here; they belong
