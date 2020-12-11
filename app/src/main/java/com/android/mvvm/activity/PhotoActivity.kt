@@ -17,10 +17,10 @@ import com.android.lib.util.GetPathFromUri
 import com.android.lib.util.Permission
 import com.android.lib.util.kotlin.startActivity
 import com.android.mvvm.R
+import com.android.mvvm.databinding.ActivityPhotoBinding
+import com.android.mvvm.databinding.CommonHeadLayoutBinding
 import com.android.mvvm.util.PhotoUtil
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_photo.*
-import kotlinx.android.synthetic.main.common_head_layout.*
 import java.io.BufferedInputStream
 import java.io.BufferedOutputStream
 import java.io.File
@@ -31,6 +31,9 @@ import kotlin.concurrent.thread
 
 class PhotoActivity : BaseActivity(), View.OnClickListener {
 
+    private lateinit var activityPhotoBinding: ActivityPhotoBinding
+    private lateinit var commonHeadLayoutBinding: CommonHeadLayoutBinding
+
     companion object {
         private const val TAG = "PhotoActivity"
         fun actionStart(activity: FragmentActivity, isPutStack: Boolean) {
@@ -38,15 +41,19 @@ class PhotoActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    override fun getLayoutId() = R.layout.activity_photo
+    override fun getLayoutView(): View {
+        activityPhotoBinding = ActivityPhotoBinding.inflate(layoutInflater)
+        commonHeadLayoutBinding = activityPhotoBinding.commonHead
+        return activityPhotoBinding.root
+    }
 
     override fun initView() {
-        camera.setOnClickListener(this)
-        album.setOnClickListener(this)
+        activityPhotoBinding.camera.setOnClickListener(this)
+        activityPhotoBinding.album.setOnClickListener(this)
     }
 
     override fun initData() {
-        navigationBar.setTitle("图片选择")
+        commonHeadLayoutBinding.navigationBar.setTitle("图片选择")
     }
 
     override fun onClick(v: View) {
@@ -113,7 +120,7 @@ class PhotoActivity : BaseActivity(), View.OnClickListener {
             PhotoUtil.CAMERA_CODE_PHOTO -> if (!TextUtils.isEmpty(PhotoUtil.path)) {
                 val file = File(PhotoUtil.path)
                 if (file.isFile) {
-                    Glide.with(this).load(PhotoUtil.path).into(result)
+                    Glide.with(this).load(PhotoUtil.path).into(activityPhotoBinding.result)
                 }
             }
             PhotoUtil.ALBUM_CODE_SELECT_PICTURE -> if (data != null) {
@@ -124,7 +131,7 @@ class PhotoActivity : BaseActivity(), View.OnClickListener {
                         copyUriToExternalFilesDir(uri, fileName)
                         val tempDir = getExternalFilesDir("temp")
                         if (tempDir != null) {
-                            Glide.with(this).load("$tempDir/$fileName").into(result);
+                            Glide.with(this).load("$tempDir/$fileName").into(activityPhotoBinding.result);
                         } else {
                             Toast.makeText(
                                 this,
@@ -135,9 +142,9 @@ class PhotoActivity : BaseActivity(), View.OnClickListener {
                     } else {
                         val path = GetPathFromUri.instance.getPath(this, uri)
                         if (path != null) {
-                            Glide.with(this).load(path).into(result)
+                            Glide.with(this).load(path).into(activityPhotoBinding.result)
                         } else {
-                            Glide.with(this).load(uri).into(result)
+                            Glide.with(this).load(uri).into(activityPhotoBinding.result)
                         }
                     }
                 }

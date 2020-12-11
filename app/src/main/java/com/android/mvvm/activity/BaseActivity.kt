@@ -2,6 +2,7 @@ package com.android.mvvm.activity
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -18,13 +19,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getLayoutId())
+        setContentView(getLayoutView())
         initView()
         initData()
     }
 
     // 引入布局
-    protected abstract fun getLayoutId(): Int
+    protected abstract fun getLayoutView(): View
 
     // 初始化控件
     protected abstract fun initView()

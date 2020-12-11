@@ -6,19 +6,23 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.android.lib.util.SystemInfo
 import com.android.lib.util.kotlin.startActivity
 import com.android.mvvm.MyApplication.Companion.context
 import com.android.mvvm.R
+import com.android.mvvm.databinding.ActivityPermissionBinding
+import com.android.mvvm.databinding.CommonHeadLayoutBinding
 import com.android.mvvm.util.CustomDialog
 import com.permissionx.guolindev.PermissionX
-import kotlinx.android.synthetic.main.activity_permission.*
-import kotlinx.android.synthetic.main.common_head_layout.*
 
 
 class PermissionActivity : BaseActivity() {
+
+    private lateinit var activityPermissionBinding: ActivityPermissionBinding
+    private lateinit var commonHeadLayoutBinding: CommonHeadLayoutBinding
 
     companion object {
         private const val TAG = "PermissionActivity"
@@ -27,14 +31,18 @@ class PermissionActivity : BaseActivity() {
         }
     }
 
-    override fun getLayoutId() = R.layout.activity_permission
+    override fun getLayoutView(): View {
+        activityPermissionBinding = ActivityPermissionBinding.inflate(layoutInflater)
+        commonHeadLayoutBinding = activityPermissionBinding.commonHead
+        return activityPermissionBinding.root
+    }
 
     override fun initView() {
-        navigationBar.setTitle("权限申请")
+        commonHeadLayoutBinding.navigationBar.setTitle("权限申请")
     }
 
     override fun initData() {
-        requestPermission.setOnClickListener {
+        activityPermissionBinding.requestPermission.setOnClickListener {
             val permissionList = ArrayList<String>()
             permissionList.add(Manifest.permission.CALL_PHONE)
             permissionList.add(Manifest.permission.CAMERA)

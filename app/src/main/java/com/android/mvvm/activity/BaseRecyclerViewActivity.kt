@@ -15,9 +15,9 @@ import com.android.lib.listener.EndlessRecyclerOnScrollListener
 import com.android.lib.util.kotlin.startActivity
 import com.android.mvvm.R
 import com.android.mvvm.adapter.BaseRecyclerAdapter
+import com.android.mvvm.databinding.ActivityBaseRecyclerViewBinding
+import com.android.mvvm.databinding.CommonHeadLayoutBinding
 import com.android.mvvm.util.showToast
-import kotlinx.android.synthetic.main.activity_base_recycler_view.*
-import kotlinx.android.synthetic.main.common_head_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,6 +25,8 @@ class BaseRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
     BaseRecyclerViewAdapter.OnItemLongClickListener, BaseRecyclerViewAdapter.OnViewClickListener,
     BaseRecyclerViewAdapter.OnMenuClickLister {
 
+    private lateinit var activityBaseRecyclerViewBinding: ActivityBaseRecyclerViewBinding
+    private lateinit var commonHeadLayoutBinding: CommonHeadLayoutBinding
     private val list: MutableList<String> = ArrayList()
     private lateinit var loadMoreWrapperAdapter: LoadMoreWrapperAdapter
     private lateinit var baseRecyclerAdapter: BaseRecyclerAdapter
@@ -37,11 +39,15 @@ class BaseRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
         }
     }
 
-    override fun getLayoutId() = R.layout.activity_base_recycler_view
+    override fun getLayoutView(): View {
+        activityBaseRecyclerViewBinding = ActivityBaseRecyclerViewBinding.inflate(layoutInflater)
+        commonHeadLayoutBinding = activityBaseRecyclerViewBinding.commonHead
+        return activityBaseRecyclerViewBinding.root
+    }
 
     override fun initView() {
-        navigationBar.setTitle("RecyclerView的基本使用")
-        baseRecyclerView.layoutManager = LinearLayoutManager(this)
+        commonHeadLayoutBinding.navigationBar.setTitle("RecyclerView的基本使用")
+        activityBaseRecyclerViewBinding.baseRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     @SuppressLint("InflateParams")
@@ -64,9 +70,10 @@ class BaseRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
         )
         headView.layoutParams = params
         loadMoreWrapperAdapter.addHeaderView(headView)
-//        baseRecyclerView.addHeaderView(headView)
-        baseRecyclerView.adapter = loadMoreWrapperAdapter
-        baseRecyclerView.addOnScrollListener(object : EndlessRecyclerOnScrollListener() {
+//        activityBaseRecyclerViewBinding.baseRecyclerView.addHeaderView(headView)
+        activityBaseRecyclerViewBinding.baseRecyclerView.adapter = loadMoreWrapperAdapter
+        activityBaseRecyclerViewBinding.baseRecyclerView.addOnScrollListener(object :
+            EndlessRecyclerOnScrollListener() {
             override fun onLoadMore() {
                 if (list.size < total) {
                     loadMoreWrapperAdapter.setLoadState(loadMoreWrapperAdapter.loading)
@@ -83,18 +90,18 @@ class BaseRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
                 }
             }
         })
-        baseRefreshLayout.setColorSchemeColors(
+        activityBaseRecyclerViewBinding.baseRefreshLayout.setColorSchemeColors(
             ContextCompat.getColor(
                 this,
                 R.color.colorButtonPressed
             )
         )
-        baseRefreshLayout.setOnRefreshListener {
+        activityBaseRecyclerViewBinding.baseRefreshLayout.setOnRefreshListener {
             list.clear()
             getData()
             loadMoreWrapperAdapter.notifyDataSetChanged()
-            baseRefreshLayout.postDelayed({
-                baseRefreshLayout.isRefreshing = false
+            activityBaseRecyclerViewBinding.baseRefreshLayout.postDelayed({
+                activityBaseRecyclerViewBinding.baseRefreshLayout.isRefreshing = false
             }, 1000)
         }
     }

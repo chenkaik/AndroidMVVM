@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.android.lib.Logger.e
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
+import com.android.mvvm.databinding.FragmentDataBinding
 
 /**
  * date: 2020/9/21
@@ -27,16 +28,15 @@ class DataFragment : BaseFragment() {
         activity = context as MainActivity
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_data, container, false)
+    override fun getLayoutView(inflater: LayoutInflater, container: ViewGroup?): View {
+        val fragmentDataBinding = FragmentDataBinding.inflate(inflater, container, false)
+        return fragmentDataBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun initView() {
+    }
+
+    override fun initData() {
     }
 
     override fun onResume() {

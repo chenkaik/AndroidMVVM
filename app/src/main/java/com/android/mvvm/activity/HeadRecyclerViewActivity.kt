@@ -12,12 +12,14 @@ import com.android.lib.adapter.BaseRecyclerViewAdapter
 import com.android.lib.util.kotlin.startActivity
 import com.android.mvvm.R
 import com.android.mvvm.adapter.BaseRecyclerAdapter
+import com.android.mvvm.databinding.ActivityHeadRecyclerViewBinding
+import com.android.mvvm.databinding.CommonHeadLayoutBinding
 import com.android.mvvm.util.showToast
-import kotlinx.android.synthetic.main.activity_head_recycler_view.*
-import kotlinx.android.synthetic.main.common_head_layout.*
 
 class HeadRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemClickListener {
 
+    private lateinit var activityHeadRecyclerViewBinding: ActivityHeadRecyclerViewBinding
+    private lateinit var commonHeadLayoutBinding: CommonHeadLayoutBinding
     private val list: MutableList<String> = ArrayList()
     private lateinit var baseRecyclerAdapter: BaseRecyclerAdapter
 
@@ -28,11 +30,15 @@ class HeadRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
         }
     }
 
-    override fun getLayoutId() = R.layout.activity_head_recycler_view
+    override fun getLayoutView(): View {
+        activityHeadRecyclerViewBinding = ActivityHeadRecyclerViewBinding.inflate(layoutInflater)
+        commonHeadLayoutBinding = activityHeadRecyclerViewBinding.commonHead
+        return activityHeadRecyclerViewBinding.root
+    }
 
     override fun initView() {
-        navigationBar.setTitle("RecyclerView添加Head")
-        headRecyclerView.layoutManager = LinearLayoutManager(this)
+        commonHeadLayoutBinding.navigationBar.setTitle("RecyclerView添加Head")
+        activityHeadRecyclerViewBinding.headRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     @SuppressLint("InflateParams")
@@ -60,9 +66,9 @@ class HeadRecyclerViewActivity : BaseActivity(), BaseRecyclerViewAdapter.OnItemC
         )
         headView.layoutParams = params
         footView.layoutParams = params
-        headRecyclerView.addHeaderView(headView)
-        headRecyclerView.addFootView(footView)
-        headRecyclerView.adapter = baseRecyclerAdapter
+        activityHeadRecyclerViewBinding.headRecyclerView.addHeaderView(headView)
+        activityHeadRecyclerViewBinding.headRecyclerView.addFootView(footView)
+        activityHeadRecyclerViewBinding.headRecyclerView.adapter = baseRecyclerAdapter
     }
 
     private fun getData() {

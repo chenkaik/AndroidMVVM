@@ -7,6 +7,8 @@ import com.android.lib.Logger
 import com.android.lib.util.GsonUtil
 import com.android.lib.util.kotlin.startActivity
 import com.android.mvvm.R
+import com.android.mvvm.databinding.ActivityHttpBinding
+import com.android.mvvm.databinding.CommonHeadLayoutBinding
 import com.android.mvvm.entity.LoginResponse
 import com.android.mvvm.entity.NumberResponse
 import com.android.mvvm.entity.request.LoginRequest
@@ -17,11 +19,12 @@ import com.android.mvvm.https.response.OkHttpResponse
 import com.android.mvvm.https.response.RetrofitResponse
 import com.android.mvvm.util.UserConfig
 import com.android.mvvm.util.showToast
-import kotlinx.android.synthetic.main.activity_http.*
-import kotlinx.android.synthetic.main.common_head_layout.*
 import org.json.JSONObject
 
 class HttpActivity : BaseActivity(), View.OnClickListener, RetrofitResponse, OkHttpResponse {
+
+    private lateinit var activityHttpBinding: ActivityHttpBinding
+    private lateinit var commonHeadLayoutBinding: CommonHeadLayoutBinding
 
     companion object {
         private const val TAG = "HttpActivity"
@@ -30,14 +33,18 @@ class HttpActivity : BaseActivity(), View.OnClickListener, RetrofitResponse, OkH
         }
     }
 
-    override fun getLayoutId() = R.layout.activity_http
+    override fun getLayoutView(): View {
+        activityHttpBinding = ActivityHttpBinding.inflate(layoutInflater)
+        commonHeadLayoutBinding = activityHttpBinding.commonHead
+        return activityHttpBinding.root
+    }
 
     override fun initView() {
-        navigationBar.setTitle("接口调用")
-        okHttp.setOnClickListener(this)
-        okHttpOther.setOnClickListener(this)
-        retrofit.setOnClickListener(this)
-        retrofitOther.setOnClickListener(this)
+        commonHeadLayoutBinding.navigationBar.setTitle("接口调用")
+        activityHttpBinding.okHttp.setOnClickListener(this)
+        activityHttpBinding.okHttpOther.setOnClickListener(this)
+        activityHttpBinding.retrofit.setOnClickListener(this)
+        activityHttpBinding.retrofitOther.setOnClickListener(this)
     }
 
     override fun initData() {

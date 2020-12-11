@@ -12,9 +12,9 @@ import com.android.mvvm.activity.BaseRecyclerViewActivity
 import com.android.mvvm.activity.HeadRecyclerViewActivity
 import com.android.mvvm.activity.PermissionActivity
 import com.android.mvvm.activity.PhotoActivity
+import com.android.mvvm.databinding.CommonHeadLayoutBinding
+import com.android.mvvm.databinding.FragmentWorkBinding
 import com.android.mvvm.ui.LoginActivity
-import kotlinx.android.synthetic.main.common_head_layout.*
-import kotlinx.android.synthetic.main.fragment_work.*
 
 /**
  * date: 2020/9/21
@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.fragment_work.*
 class WorkFragment : BaseFragment(), View.OnClickListener {
 
     private var activity: MainActivity? = null
+    private lateinit var fragmentWorkBinding: FragmentWorkBinding
+    private lateinit var commonHeadLayoutBinding: CommonHeadLayoutBinding
 
     companion object {
         private const val TAG = "WorkFragment"
@@ -34,23 +36,24 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
         activity = context as MainActivity
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_work, container, false)
+    override fun getLayoutView(inflater: LayoutInflater, container: ViewGroup?): View {
+        fragmentWorkBinding = FragmentWorkBinding.inflate(inflater, container, false)
+        commonHeadLayoutBinding = fragmentWorkBinding.commonHead
+        return fragmentWorkBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        navigationBar.hideLeftLayout()
-        navigationBar.setTitle("工作")
-        baseRecyclerViewBtn.setOnClickListener(this)
-        headRecyclerViewBtn.setOnClickListener(this)
-        selectedImgBtn.setOnClickListener(this)
-        permissionBtn.setOnClickListener(this)
-        loginBtn.setOnClickListener(this)
+    override fun initView() {
+        commonHeadLayoutBinding.navigationBar.hideLeftLayout()
+        commonHeadLayoutBinding.navigationBar.setTitle("工作")
+        fragmentWorkBinding.baseRecyclerViewBtn.setOnClickListener(this)
+        fragmentWorkBinding.headRecyclerViewBtn.setOnClickListener(this)
+        fragmentWorkBinding.selectedImgBtn.setOnClickListener(this)
+        fragmentWorkBinding.permissionBtn.setOnClickListener(this)
+        fragmentWorkBinding.loginBtn.setOnClickListener(this)
+    }
+
+    override fun initData() {
+
     }
 
     override fun onResume() {

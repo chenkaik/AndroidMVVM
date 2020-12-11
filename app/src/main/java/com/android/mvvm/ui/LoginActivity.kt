@@ -1,5 +1,6 @@
 package com.android.mvvm.ui
 
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -7,11 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.lib.util.kotlin.startActivity
 import com.android.mvvm.R
 import com.android.mvvm.activity.BaseActivity
+import com.android.mvvm.databinding.ActivityLoginBinding
+import com.android.mvvm.databinding.CommonHeadLayoutBinding
 import com.android.mvvm.util.UserConfig
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.common_head_layout.*
 
 class LoginActivity : BaseActivity() {
+
+    private lateinit var activityLoginBinding: ActivityLoginBinding
+    private lateinit var commonHeadLayoutBinding: CommonHeadLayoutBinding
 
     companion object {
         private const val TAG = "LoginActivity"
@@ -22,11 +26,15 @@ class LoginActivity : BaseActivity() {
 
     private val viewModel by lazy { ViewModelProvider(this)[LoginViewModel::class.java] }
 
-    override fun getLayoutId() = R.layout.activity_login
+    override fun getLayoutView(): View {
+        activityLoginBinding = ActivityLoginBinding.inflate(layoutInflater)
+        commonHeadLayoutBinding = activityLoginBinding.commonHead
+        return activityLoginBinding.root
+    }
 
     override fun initView() {
-        navigationBar.setTitle("登录")
-        login.setOnClickListener {
+        commonHeadLayoutBinding.navigationBar.setTitle("登录")
+        activityLoginBinding.login.setOnClickListener {
             UserConfig.clearToken()
             viewModel.login("lixiangbin", "shjacf")
         }

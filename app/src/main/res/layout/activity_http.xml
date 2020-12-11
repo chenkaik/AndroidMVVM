@@ -7,7 +7,9 @@
     android:orientation="vertical"
     tools:context=".activity.HttpActivity">
 
-    <include layout="@layout/common_head_layout" />
+    <include
+        android:id="@+id/commonHead"
+        layout="@layout/common_head_layout" />
 
     <Button
         android:id="@+id/okHttp"

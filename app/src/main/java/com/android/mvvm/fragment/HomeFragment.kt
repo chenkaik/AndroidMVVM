@@ -12,7 +12,7 @@ import com.android.lib.util.InputTextHelper
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
 import com.android.mvvm.activity.HttpActivity
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.android.mvvm.databinding.FragmentHomeBinding
 
 /**
  * date: 2020/9/21
@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  */
 class HomeFragment : BaseFragment() {
 
+    private lateinit var fragmentHomeBinding: FragmentHomeBinding
     private var activity: MainActivity? = null
     private lateinit var inputTextHelper: InputTextHelper
 
@@ -33,27 +34,27 @@ class HomeFragment : BaseFragment() {
         activity = context as MainActivity
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    override fun getLayoutView(inflater: LayoutInflater, container: ViewGroup?): View {
+        fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        return fragmentHomeBinding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun initView() {
+
+    }
+
+    override fun initData() {
         val viewRes: MutableList<String> = ArrayList()
         viewRes.add("https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/676ddccc418842904f82ccdc66bbaa34.jpg?w=2452&h=920")
         viewRes.add("https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/cf6ba4d372b80e939104cf369f14139a.jpg?thumb=1&w=1226&h=460&f=webp&q=90")
         viewRes.add("https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/fe25c546580ff179bf6e60fb54d7afd4.jpg?thumb=1&w=1226&h=460&f=webp&q=90")
-        banner.initBannerImageView(viewRes,
+        fragmentHomeBinding.banner.initBannerImageView(viewRes,
             object : RecyclerViewBannerBaseView.OnBannerItemClickListener {
                 override fun onItemClick(position: Int) {
                     Toast.makeText(getMyActivity(), position.toString(), Toast.LENGTH_SHORT).show()
                 }
             })
-        banner.setPlaying(true)
+        fragmentHomeBinding.banner.setPlaying(true)
 //        startActivity<MainActivity>(this)
 //        if ("hello" beginsWith "he"){
 //
@@ -61,9 +62,12 @@ class HomeFragment : BaseFragment() {
 //        "t".showToast(this)
 //        R.string.app_name.showToast(this)
 //        val dialog = CommonDialog(getMyActivity())
-        inputTextHelper = InputTextHelper(button1)
-        inputTextHelper.addViews(et_register_phone, et_register_code)
-        button1.setOnClickListener {
+        inputTextHelper = InputTextHelper(fragmentHomeBinding.button1)
+        inputTextHelper.addViews(
+            fragmentHomeBinding.etRegisterPhone,
+            fragmentHomeBinding.etRegisterCode
+        )
+        fragmentHomeBinding.button1.setOnClickListener {
             //            dialog.showProgress("hh")
 //            dialog.showAlertDialog("提示","这是内容", View.OnClickListener {
 //                "确定".showToast()
@@ -76,7 +80,7 @@ class HomeFragment : BaseFragment() {
 
 
         }
-        http.setOnClickListener {
+        fragmentHomeBinding.http.setOnClickListener {
 //            val intent = Intent(getMyActivity(), HttpActivity::class.java)
 //            ActivityCollector.startPage(getMyActivity(), intent, true)
             HttpActivity.actionStart(getMyActivity(), true)
@@ -90,10 +94,9 @@ class HomeFragment : BaseFragment() {
 //            }
         }
 
-        button3.setOnClickListener {
+        fragmentHomeBinding.button3.setOnClickListener {
 
         }
-
     }
 
     override fun onResume() {
