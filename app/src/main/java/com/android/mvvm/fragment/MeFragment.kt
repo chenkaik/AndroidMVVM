@@ -10,6 +10,7 @@ import com.android.lib.Logger.e
 import com.android.mvvm.MainActivity
 import com.android.mvvm.R
 import com.android.mvvm.databinding.FragmentMeBinding
+import com.android.mvvm.util.showToast
 
 /**
  * date: 2020/9/21
@@ -27,12 +28,12 @@ class MeFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
-        e(TAG,"onAttach:")
+        e(TAG, "onAttach:")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        e(TAG,"onCreate:")
+        e(TAG, "onCreate:")
     }
 
     override fun onCreateView(
@@ -40,24 +41,32 @@ class MeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        e(TAG,"onCreateView:")
+        e(TAG, "onCreateView:")
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun getLayoutView(inflater: LayoutInflater, container: ViewGroup?): View {
+    override fun getLayoutView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val fragmentMeBinding = FragmentMeBinding.inflate(inflater, container, false)
         return fragmentMeBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        e(TAG,"onActivityCreated:")
+        e(TAG, "onActivityCreated:")
     }
 
     override fun initView() {
     }
 
     override fun initData() {
+    }
+
+    override fun loadData() {
+        "我的第一次加载".showToast()
     }
 
     override fun onStart() {

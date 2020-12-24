@@ -13,6 +13,7 @@ import com.android.mvvm.MainActivity
 import com.android.mvvm.R
 import com.android.mvvm.activity.HttpActivity
 import com.android.mvvm.databinding.FragmentHomeBinding
+import com.android.mvvm.util.showToast
 
 /**
  * date: 2020/9/21
@@ -32,12 +33,12 @@ class HomeFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
-        e(TAG,"onAttach:")
+        e(TAG, "onAttach:")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        e(TAG,"onCreate:")
+        e(TAG, "onCreate:")
     }
 
     override fun onCreateView(
@@ -45,18 +46,22 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        e(TAG,"onCreateView:")
+        e(TAG, "onCreateView:")
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun getLayoutView(inflater: LayoutInflater, container: ViewGroup?): View {
+    override fun getLayoutView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return fragmentHomeBinding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        e(TAG,"onActivityCreated:")
+        e(TAG, "onActivityCreated:")
     }
 
     override fun initView() {
@@ -117,6 +122,10 @@ class HomeFragment : BaseFragment() {
         fragmentHomeBinding.button3.setOnClickListener {
             getMyActivity().test()
         }
+    }
+
+    override fun loadData() {
+        "首页第一次加载".showToast()
     }
 
     override fun onStart() {

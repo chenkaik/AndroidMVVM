@@ -15,6 +15,7 @@ import com.android.mvvm.activity.PhotoActivity
 import com.android.mvvm.databinding.CommonHeadLayoutBinding
 import com.android.mvvm.databinding.FragmentWorkBinding
 import com.android.mvvm.ui.LoginActivity
+import com.android.mvvm.util.showToast
 
 /**
  * date: 2020/9/21
@@ -34,12 +35,12 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
-        e(TAG,"onAttach:")
+        e(TAG, "onAttach:")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        e(TAG,"onCreate:")
+        e(TAG, "onCreate:")
     }
 
     override fun onCreateView(
@@ -47,11 +48,15 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        e(TAG,"onCreateView:")
+        e(TAG, "onCreateView:")
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    override fun getLayoutView(inflater: LayoutInflater, container: ViewGroup?): View {
+    override fun getLayoutView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         fragmentWorkBinding = FragmentWorkBinding.inflate(inflater, container, false)
         commonHeadLayoutBinding = fragmentWorkBinding.commonHead
         return fragmentWorkBinding.root
@@ -59,7 +64,7 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        e(TAG,"onActivityCreated:")
+        e(TAG, "onActivityCreated:")
     }
 
     override fun initView() {
@@ -74,6 +79,10 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
 
     override fun initData() {
 
+    }
+
+    override fun loadData() {
+        "工作第一次加载".showToast()
     }
 
     override fun onStart() {
