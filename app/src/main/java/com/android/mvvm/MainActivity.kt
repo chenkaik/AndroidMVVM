@@ -132,6 +132,13 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener,
         return false
     }
 
+    fun test(){
+        activityMainBinding.homeViewPager.setCurrentItem(
+            2,
+            activityMainBinding.homeViewPager.currentItem == 1 || activityMainBinding.homeViewPager.currentItem == 3
+        )
+    }
+
 //    private fun handleCurrentItemAnimator(item: MenuItem) {
 //        val menuItemView =
 //            findViewById<BottomNavigationItemView>(homeNavigationView.menu.findItem(item.itemId).itemId)

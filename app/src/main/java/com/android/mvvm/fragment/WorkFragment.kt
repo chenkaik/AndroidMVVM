@@ -34,12 +34,32 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
+        e(TAG,"onAttach:")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        e(TAG,"onCreate:")
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        e(TAG,"onCreateView:")
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun getLayoutView(inflater: LayoutInflater, container: ViewGroup?): View {
         fragmentWorkBinding = FragmentWorkBinding.inflate(inflater, container, false)
         commonHeadLayoutBinding = fragmentWorkBinding.commonHead
         return fragmentWorkBinding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        e(TAG,"onActivityCreated:")
     }
 
     override fun initView() {
@@ -54,6 +74,11 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
 
     override fun initData() {
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        e(TAG, "onStart: ")
     }
 
     override fun onResume() {
@@ -79,6 +104,26 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
                 LoginActivity.actionStart(getMyActivity(), true)
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        e(TAG, "onPause: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        e(TAG, "onStop: ")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        e(TAG, "onDestroyView: ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        e(TAG, "onDestroy: ")
     }
 
     private fun getMyActivity() = activity ?: getActivity() as MainActivity

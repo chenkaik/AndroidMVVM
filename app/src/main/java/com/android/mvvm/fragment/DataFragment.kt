@@ -26,11 +26,31 @@ class DataFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
+        e(TAG,"onAttach:")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        e(TAG,"onCreate:")
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        e(TAG,"onCreateView:")
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun getLayoutView(inflater: LayoutInflater, container: ViewGroup?): View {
         val fragmentDataBinding = FragmentDataBinding.inflate(inflater, container, false)
         return fragmentDataBinding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        e(TAG,"onActivityCreated:")
     }
 
     override fun initView() {
@@ -39,9 +59,34 @@ class DataFragment : BaseFragment() {
     override fun initData() {
     }
 
+    override fun onStart() {
+        super.onStart()
+        e(TAG, "onStart: ")
+    }
+
     override fun onResume() {
         super.onResume()
         e(TAG, "onResume: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        e(TAG, "onPause: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        e(TAG, "onStop: ")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        e(TAG, "onDestroyView: ")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        e(TAG, "onDestroy: ")
     }
 
     private fun getMyActivity() = activity ?: getActivity() as MainActivity
