@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript { // 这里是gradle脚本执行所需依赖，分别是对应的maven库和插件
-    ext.kotlin_version = '1.4.10' // kotlin版本
+    ext.kotlin_version = '1.4.21' // kotlin版本
     repositories { // 配置远程仓库
         google() // 从Android Studio3.0后新增了google()配置，可以引用google上的开源项目
         jcenter() // 是一个类似于github的代码托管仓库，声明了jcenter()配置，可以轻松引用 jcenter上的开源项目
@@ -11,7 +11,7 @@ buildscript { // 这里是gradle脚本执行所需依赖，分别是对应的mav
     }
     dependencies { // 配置构建工具
         // 声明了一个Gradle插件，由于Gradle并不只是用来构建Android项目，因此此处引入相关插件来构建Android项目，其中'4.1.1'为该插件的版本号，可以根据最新的版本号来调整。
-        classpath 'com.android.tools.build:gradle:4.1.1' // 此处是android的插件gradle，gradle是一个强大的项目构建工具
+        classpath "com.android.tools.build:gradle:$localGradlePluginVersion" // 此处是android的插件gradle，gradle是一个强大的项目构建工具
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // kotlin插件
 
         // NOTE: Do not place your application dependencies here; they belong

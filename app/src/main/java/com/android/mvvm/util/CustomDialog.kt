@@ -8,17 +8,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
 import com.android.mvvm.R
+import com.android.mvvm.databinding.CustomDialogLayoutBinding
 import com.permissionx.guolindev.dialog.RationaleDialog
-import kotlinx.android.synthetic.main.custom_dialog_layout.*
 
 /**
  * date: 2020/10/22
  * desc: 自定义的请求权限dialog
  */
 @TargetApi(30)
-class CustomDialog(context: Context, val message: String, private val permissions: List<String>) : RationaleDialog(context, R.style.CustomDialog) {
+class CustomDialog(context: Context, val message: String, private val permissions: List<String>) :
+    RationaleDialog(context, R.style.CustomDialog) {
 
-    private val permissionMap = mapOf(Manifest.permission.READ_CALENDAR to Manifest.permission_group.CALENDAR,
+    private val permissionMap = mapOf(
+        Manifest.permission.READ_CALENDAR to Manifest.permission_group.CALENDAR,
         Manifest.permission.WRITE_CALENDAR to Manifest.permission_group.CALENDAR,
         Manifest.permission.READ_CALL_LOG to Manifest.permission_group.CALL_LOG,
         Manifest.permission.WRITE_CALL_LOG to Manifest.permission_group.CALL_LOG,
@@ -51,11 +53,14 @@ class CustomDialog(context: Context, val message: String, private val permission
     )
 
     private val groupSet = HashSet<String>()
+    private lateinit var layoutBinding: CustomDialogLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.custom_dialog_layout)
-        messageText.text = message
+//        setContentView(R.layout.custom_dialog_layout)
+        layoutBinding = CustomDialogLayoutBinding.inflate(layoutInflater)
+        setContentView(layoutBinding.root)
+        layoutBinding.messageText.text = message
         buildPermissionsLayout()
         window?.let {
             val param = it.attributes
@@ -66,11 +71,11 @@ class CustomDialog(context: Context, val message: String, private val permission
     }
 
     override fun getNegativeButton(): View? {
-        return negativeBtn
+        return layoutBinding.negativeBtn
     }
 
     override fun getPositiveButton(): View {
-        return positiveBtn
+        return layoutBinding.positiveBtn
     }
 
     override fun getPermissionsToRequest(): List<String> {
@@ -81,9 +86,14 @@ class CustomDialog(context: Context, val message: String, private val permission
         for (permission in permissions) {
             val permissionGroup = permissionMap[permission]
             if (permissionGroup != null && !groupSet.contains(permissionGroup)) {
-                val textView = LayoutInflater.from(context).inflate(R.layout.permissions_item, permissionsLayout, false) as TextView
-                textView.text = context.packageManager.getPermissionGroupInfo(permissionGroup, 0).loadLabel(context.packageManager)
-                permissionsLayout.addView(textView)
+                val textView = LayoutInflater.from(context).inflate(
+                    R.layout.permissions_item,
+                    layoutBinding.permissionsLayout,
+                    false
+                ) as TextView
+                textView.text = context.packageManager.getPermissionGroupInfo(permissionGroup, 0)
+                    .loadLabel(context.packageManager)
+                layoutBinding.permissionsLayout.addView(textView)
                 groupSet.add(permissionGroup)
             }
         }
