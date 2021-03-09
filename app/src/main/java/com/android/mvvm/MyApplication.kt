@@ -7,6 +7,7 @@ import com.android.lib.util.CrashHandler
 import com.android.mvvm.https.ApiManager
 import com.android.mvvm.https.config.HttpConfig
 
+
 /**
  * date: 2020/9/7
  * desc: 程序入口
@@ -22,7 +23,7 @@ class MyApplication : Application() {
         context = applicationContext
         Logger.LOG_ENABLE = true
         CrashHandler.instance.init(context)
-        ApiManager.init(HttpConfig.BASE_URL)
+        ApiManager.init(BuildConfig.BASEURL)
     }
 
 }

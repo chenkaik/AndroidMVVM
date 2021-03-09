@@ -18,6 +18,14 @@ android {
         versionName VERSION_NAME // 版本名称
         // 表明要使用AndroidJUnitRunner进行单元测试
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // 配置变量
+        buildConfigField ("boolean", "isOpen", "false")
+        buildConfigField ("String", "str", "\"测试字符\"")
+        buildConfigField ("int", "inin", "18")
+        buildConfigField ("String", "BASEURL", BASE_URL)
+        buildConfigField ("String", "WECHAT_APPID", "\"${WECHAT_APPID}\"")
+        buildConfigField ("String", "WECHAT_APPKEY", "\"${WECHAT_APPKEY}\"")
     }
 
     buildTypes {
@@ -49,7 +57,7 @@ dependencies { // 项目的依赖关系
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation project(path: ':common')
