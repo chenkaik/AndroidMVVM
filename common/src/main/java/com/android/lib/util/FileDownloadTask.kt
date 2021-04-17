@@ -31,7 +31,12 @@ class FileDownloadTask(// 下载监听
         private const val FAILED = 1
     }
 
-    override fun doInBackground(vararg params: String?): Int {
+    override fun onPreExecute() {
+        super.onPreExecute()
+        // 任务开始前调用
+    }
+
+    override fun doInBackground(vararg params: String?): Int { // 子线程执行处理耗时任务
         try {
             val downloadLength: Long = 0 // 记录已下载文件的长度（配合断点下载使用）
             val downloadUrl = params[0]
@@ -101,6 +106,7 @@ class FileDownloadTask(// 下载监听
     }
 
     override fun onProgressUpdate(vararg values: Int?) { // 后台任务中调用publishProgress(Progress...)后，此方法很快就会被回调
+        // 该方法中携带的参数就是在后台任务中传递过来的。本方法可以进行更新UI操作
         val progress = values[0]
         val percentage = values[1]
         if (progress != null && percentage != null) {
@@ -111,7 +117,7 @@ class FileDownloadTask(// 下载监听
         }
     }
 
-    override fun onPostExecute(status: Int) {
+    override fun onPostExecute(status: Int) { // 任务执行的结果
         when (status) {
             SUCCESS -> if (mFile.isFile) {
                 mListener.onSuccess(mFile)

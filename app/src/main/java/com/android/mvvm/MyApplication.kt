@@ -1,5 +1,6 @@
 package com.android.mvvm
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.android.lib.Logger
@@ -15,6 +16,7 @@ import com.android.mvvm.https.config.HttpConfig
 class MyApplication : Application() {
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
     }
 
