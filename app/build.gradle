@@ -5,6 +5,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -19,12 +21,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // 配置变量
-        buildConfigField ("boolean", "isOpen", "false")
-        buildConfigField ("String", "str", "\"测试字符\"")
-        buildConfigField ("int", "inin", "18")
-        buildConfigField ("String", "BASEURL", BASE_URL)
-        buildConfigField ("String", "WECHAT_APPID", "\"${WECHAT_APPID}\"")
-        buildConfigField ("String", "WECHAT_APPKEY", "\"${WECHAT_APPKEY}\"")
+        buildConfigField("boolean", "isOpen", "false")
+        buildConfigField("String", "str", "\"测试字符\"")
+        buildConfigField("int", "inin", "18")
+        buildConfigField("String", "BASEURL", BASE_URL)
+        buildConfigField("String", "WECHAT_APPID", "\"${WECHAT_APPID}\"")
+        buildConfigField("String", "WECHAT_APPKEY", "\"${WECHAT_APPKEY}\"")
     }
 
     buildTypes {
@@ -46,7 +48,12 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
+
+//    dataBinding {
+//        enabled = true
+//    }
 
 }
 

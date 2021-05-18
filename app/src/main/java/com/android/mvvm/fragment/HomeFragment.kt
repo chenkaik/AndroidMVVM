@@ -13,6 +13,7 @@ import com.android.mvvm.MainActivity
 import com.android.mvvm.R
 import com.android.mvvm.activity.HttpActivity
 import com.android.mvvm.databinding.FragmentHomeBinding
+import com.android.mvvm.util.Person
 import com.android.mvvm.util.showToast
 
 /**
@@ -108,7 +109,7 @@ class HomeFragment : BaseFragment() {
         fragmentHomeBinding.http.setOnClickListener {
 //            val intent = Intent(getMyActivity(), HttpActivity::class.java)
 //            ActivityCollector.startPage(getMyActivity(), intent, true)
-            HttpActivity.actionStart(getMyActivity(), true)
+            HttpActivity.actionStart(getMyActivity(), true, Person("测试", 123456))
 //            startActivity<HttpActivity>(getMyActivity(), true)
 //            startActivity<HttpActivity>(getMyActivity(), true, 100)
 //            startActivity<HttpActivity>(getMyActivity(), true) {
