@@ -1,6 +1,7 @@
 package com.android.mvvm.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.android.mvvm.MainActivity
 import com.android.mvvm.R
 import com.android.mvvm.activity.HttpActivity
 import com.android.mvvm.databinding.FragmentHomeBinding
+import com.android.mvvm.jetpack.TestActivity
 import com.android.mvvm.util.Person
 import com.android.mvvm.util.showToast
 
@@ -121,7 +123,8 @@ class HomeFragment : BaseFragment() {
         }
 
         fragmentHomeBinding.button3.setOnClickListener {
-            getMyActivity().test()
+//            getMyActivity().test()
+            TestActivity.actionStart(getMyActivity(), true)
         }
     }
 

@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.LoginActivity"/>
+        <activity android:name=".jetpack.TestActivity"/>
+        <activity android:name=".ui.LoginActivity" />
         <activity android:name=".activity.PermissionActivity" />
         <activity android:name=".activity.PhotoActivity" />
         <activity android:name=".activity.HeadRecyclerViewActivity" />

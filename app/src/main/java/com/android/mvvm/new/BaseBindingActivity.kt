@@ -31,8 +31,8 @@ abstract class BaseBindingActivity<B : ViewDataBinding> : AppCompatActivity(), V
         binding.unbind()
     }
 
-    protected abstract @LayoutRes
-    fun getLayoutId(): Int
+    @LayoutRes
+    protected abstract fun getLayoutId(): Int
 
     /**
      *  初始化操作
