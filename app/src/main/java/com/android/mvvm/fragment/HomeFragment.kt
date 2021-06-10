@@ -24,7 +24,8 @@ import com.android.mvvm.util.showToast
  */
 class HomeFragment : BaseFragment() {
 
-    private lateinit var fragmentHomeBinding: FragmentHomeBinding
+    private var _fragmentHomeBinding: FragmentHomeBinding? = null
+    private val fragmentHomeBinding get() = _fragmentHomeBinding!!
     private var activity: MainActivity? = null
     private lateinit var inputTextHelper: InputTextHelper
 
@@ -58,7 +59,7 @@ class HomeFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        _fragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
         return fragmentHomeBinding.root
     }
 
@@ -154,6 +155,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _fragmentHomeBinding = null
         e(TAG, "onDestroyView: ")
     }
 

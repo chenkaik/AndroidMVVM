@@ -24,8 +24,10 @@ import com.android.mvvm.util.showToast
 class WorkFragment : BaseFragment(), View.OnClickListener {
 
     private var activity: MainActivity? = null
-    private lateinit var fragmentWorkBinding: FragmentWorkBinding
-    private lateinit var commonHeadLayoutBinding: CommonHeadLayoutBinding
+    private var _fragmentWorkBinding: FragmentWorkBinding? = null
+    private val fragmentWorkBinding get() = _fragmentWorkBinding!!
+    private var _commonHeadLayoutBinding: CommonHeadLayoutBinding? = null
+    private val commonHeadLayoutBinding get() = _commonHeadLayoutBinding!!
 
     companion object {
         private const val TAG = "WorkFragment"
@@ -57,8 +59,8 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentWorkBinding = FragmentWorkBinding.inflate(inflater, container, false)
-        commonHeadLayoutBinding = fragmentWorkBinding.commonHead
+        _fragmentWorkBinding = FragmentWorkBinding.inflate(inflater, container, false)
+        _commonHeadLayoutBinding = fragmentWorkBinding.commonHead
         return fragmentWorkBinding.root
     }
 
@@ -127,6 +129,8 @@ class WorkFragment : BaseFragment(), View.OnClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _fragmentWorkBinding = null
+        _commonHeadLayoutBinding = null
         e(TAG, "onDestroyView: ")
     }
 
